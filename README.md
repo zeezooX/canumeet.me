@@ -90,11 +90,3 @@ To run the client, use the following command:
 cd client
 npm start
 ```
-
-## Testing
-
-*work in progress*
-
-## Seed Data
-
-*work in progress*
