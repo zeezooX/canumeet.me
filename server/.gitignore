@@ -1,6 +1,11 @@
-# compiled output
+# Compiled output
 /dist
+/build
+
+# Dependencies
 /node_modules
+/.pnp
+.pnp.js
 
 # Logs
 logs
@@ -13,7 +18,14 @@ lerna-debug.log*
 # OS
 .DS_Store
 
-# Tests
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
 /coverage
 /.nyc_output
 
@@ -32,6 +44,3 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-# Ignore .env file
-.env
