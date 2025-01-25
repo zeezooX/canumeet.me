@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Meeting {
+  publicId             String   @id @unique
+  privateId            String   @unique
+  name                 String? 
+  description          String?
+  owner                String
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  date                 DateTime?
+  durationMins         Int?
+  availabilityEnabled  Boolean
+  availabilityDeadline DateTime?
+  commentsEnabled      Boolean
+  updatesEnabled       Boolean
+  excusesEnabled       Boolean
+  availabilityStart    DateTime?
+  availabilityEnd      DateTime?
+  userId               Int?     @unique
+
+  availabilities       Availability[]
+  excuses              Excuse[]
+  comments             Comment[]
+}
+
+model Availability {
+  publicId    String   @id @unique
+  privateId   String   @unique
+  owner       String
+  meetingId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  message     String?
+  userId      Int?
+
+  meeting     Meeting  @relation(fields: [meetingId], references: [publicId])
+  ranges      Availability_Range[]
+}
+
+model Availability_Range {
+  rangeId       Int      @id @unique
+  availabilityId String
+  startTime     DateTime
+  endTime       DateTime
+
+  availability  Availability @relation(fields: [availabilityId], references: [publicId])
+}
+
+model Excuse {
+  excuseId   Int      @id @unique
+  owner      String
+  meetingId  String
+  createdAt  DateTime @default(now())
+  message    String
+
+  meeting    Meeting @relation(fields: [meetingId], references: [publicId])
+}
+
+model Comment {
+  commentId   Int      @id @unique
+  isAdmin     Boolean
+  isUpdate    Boolean
+  owner       String
+  meetingId   String
+  createdAt   DateTime @default(now())
+  message     String
+  parentId    Int?
+
+  meeting     Meeting  @relation(fields: [meetingId], references: [publicId])
+  parent      Comment? @relation("CommentReplies", fields: [parentId], references: [commentId])
+  replies     Comment[] @relation("CommentReplies")
+}
