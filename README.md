@@ -36,14 +36,14 @@ Online collaborative tool that facilitates meeting scheduling, built using Node.
     npm install
     ```
 
-3. **Generate the Prisma client:**
-    ```bash
-    npx prisma generate
-    ```
-
-4. **Set up your `.env` file inside the root directory:**
+3. **Set up your `.env` file inside the root directory:**
     ```env
     DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+    ```
+
+4. **Generate the Prisma client:**
+    ```bash
+    npx prisma generate
     ```
 
 5. **Run the migration:**
@@ -78,6 +78,7 @@ Online collaborative tool that facilitates meeting scheduling, built using Node.
 To run the server, use the following command:
 
 ```bash 
+cd server
 npm run dev
 ```
 
@@ -86,6 +87,7 @@ To see the API documentation and test the endpoints using Swagger UI, navigate t
 To run the client, use the following command:
 
 ```bash
+cd client
 npm start
 ```
 
