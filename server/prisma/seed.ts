@@ -35,8 +35,6 @@ async function seed() {
       owner: 'Bob',
       meetingId: meeting.publicId,
       message: 'Please have a break in between',
-      createdAt: new Date(),
-      updatedAt: new Date(),
     },
   });
 
@@ -47,8 +45,6 @@ async function seed() {
       owner: 'Charlie',
       meetingId: meeting.publicId,
       message: 'No comments',
-      createdAt: new Date(),
-      updatedAt: new Date(),
     },
   });
 
