@@ -17,11 +17,26 @@ async function seed() {
       commentsEnabled: false,
       updatesEnabled: false,
       excusesEnabled: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
       availabilityStart: new Date(),
       availabilityEnd: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000), // +7 days
       durationMins: 60,
+    },
+  });
+
+  await prisma.meeting.create({
+    data: {
+      publicId: '000001',
+      privateId: '000001abcdef',
+      name: 'Client Call',
+      description: 'Monthly call with client to discuss project updates',
+      owner: 'Bob',
+      availabilityEnabled: true,
+      commentsEnabled: false,
+      updatesEnabled: false,
+      excusesEnabled: false,
+      availabilityStart: new Date(),
+      availabilityEnd: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000), // +30 days
+      durationMins: 30,
     },
   });
 
