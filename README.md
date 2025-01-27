@@ -1,6 +1,7 @@
-# CanUMeetMe (canumeet.me)
+# CanUMeetMe ([canumeet.me](https://www.canumeet.me/))
 
-[todo]: # (add build status badge here)
+![Client Deploy](https://deploy-badge.vercel.app/?url=https%3A%2F%2Fwww.canumeet.me%2F&name=client)
+![Server Deploy](https://deploy-badge.vercel.app/?url=https%3A%2F%2Fwww.canumeet.me%2Fapi&name=server)
 
 ![CanUMeetMe](client/src/assets/logo.png)
 
