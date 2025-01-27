@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {"source": "/api", "destination": "https://canumeetme-api.up.railway.app/api"},
+    {"source": "/api/", "destination": "https://canumeetme-api.up.railway.app/api/"},
+    {"source": "/api/(.*)", "destination": "https://canumeetme-api.up.railway.app/api/$1"},
+    {"source": "/(.*)", "destination": "/$1"}
+  ]
+}
