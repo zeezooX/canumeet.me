@@ -6,7 +6,7 @@ async function seed() {
   console.log('Seeding data...');
 
   // Create a sample meeting
-  const meeting = await prisma.meeting.create({
+  const meeting1 = await prisma.meeting.create({
     data: {
       publicId: '000000',
       privateId: '000000abcdef',
@@ -23,7 +23,7 @@ async function seed() {
     },
   });
 
-  await prisma.meeting.create({
+  const meeting2 = await prisma.meeting.create({
     data: {
       publicId: '000001',
       privateId: '000001abcdef',
@@ -40,7 +40,7 @@ async function seed() {
     },
   });
 
-  console.log(`Created meeting: ${meeting.name}`);
+  console.log(`Created meetings: ${meeting1.name}, ${meeting2.name}`);
 
   // Add availabilities for the meeting
   const availability1 = await prisma.availability.create({
@@ -48,7 +48,7 @@ async function seed() {
       publicId: '00000000',
       privateId: '00000000abcdefgh',
       owner: 'Bob',
-      meetingId: meeting.publicId,
+      meetingId: meeting1.publicId,
       message: 'Please have a break in between',
     },
   });
@@ -58,7 +58,7 @@ async function seed() {
       publicId: '00000001',
       privateId: '00000001abcdefgh',
       owner: 'Charlie',
-      meetingId: meeting.publicId,
+      meetingId: meeting1.publicId,
       message: 'No comments',
     },
   });
