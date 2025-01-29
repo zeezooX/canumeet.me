@@ -26,6 +26,13 @@ export class MeetingController {
     return this.meetingService.getMeetings(query.publicId);
   }
 
+  /**
+   * Create a meeting
+   * @param createMeetingDto - Meeting details
+   * @returns Created meeting
+   * @throws Invalid request
+   * @throws Internal server error
+   */
   @Post('create')
   @ApiOperation({ summary: 'Create a meeting' })
   @ApiResponse({ status: 201, description: 'Created meeting' })
