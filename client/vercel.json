@@ -1,8 +1,8 @@
 {
   "rewrites": [
-    {"source": "/api", "destination": "https://canumeetme-api.up.railway.app/api"},
-    {"source": "/api/", "destination": "https://canumeetme-api.up.railway.app/api/"},
-    {"source": "/api/(.*)", "destination": "https://canumeetme-api.up.railway.app/api/$1"},
+    {"source": "/api", "destination": "https://exuberant-fidelity-zeezoox-fc7193a8.koyeb.app/api"},
+    {"source": "/api/", "destination": "https://exuberant-fidelity-zeezoox-fc7193a8.koyeb.app/api/"},
+    {"source": "/api/(.*)", "destination": "https://exuberant-fidelity-zeezoox-fc7193a8.koyeb.app/api/$1"},
     {"source": "/(.*)", "destination": "/$1"}
   ]
 }
