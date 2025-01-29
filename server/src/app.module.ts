@@ -11,10 +11,10 @@ import { join } from 'path';
     MeetingModule,
     AdminModule,
     ConfigModule.forRoot(),
-    ServeStaticModule.forRoot({
+    ...(process.env.SERVE_STATIC === 'true' ? [ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', '..', 'client', 'build'),
       exclude: ['/api'],
-    }),
+    })] : []),
   ],
   providers: [PrismaService],
 })
