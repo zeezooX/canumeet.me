@@ -1,7 +1,8 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MeetingService } from './meeting.service';
 import { GetMeetingsDto } from './dto/get-meeting.dto';
+import { CreateMeetingDto } from './dto/create-meeting.dto';
 
 @Controller('meeting')
 @ApiTags('meeting')
@@ -23,5 +24,14 @@ export class MeetingController {
       query.publicId = [query.publicId];
     }
     return this.meetingService.getMeetings(query.publicId);
+  }
+
+  @Post('create')
+  @ApiOperation({ summary: 'Create a meeting' })
+  @ApiResponse({ status: 201, description: 'Created meeting' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  async createMeeting(@Body() createMeetingDto: CreateMeetingDto) {
+    return this.meetingService.createMeeting(createMeetingDto);
   }
 }

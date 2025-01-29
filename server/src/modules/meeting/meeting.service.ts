@@ -24,4 +24,31 @@ export class MeetingService {
       return rest;
     });
   }
+
+  /**
+   * Create a meeting.
+   * @param createMeetingDto Meeting data.
+   * @returns Created meeting.
+   */
+  async createMeeting(createMeetingDto) {
+    const publicId = Math.random().toString(36).substring(2, 8);
+
+    const meeting = await this.prisma.meeting.findUnique({
+      where: { publicId },
+    });
+
+    if (meeting) {
+      return this.createMeeting(createMeetingDto);
+    }
+
+    const privateId = publicId + Math.random().toString(36).substring(2, 8);
+
+    return this.prisma.meeting.create({
+      data: {
+        publicId,
+        privateId,
+        ...createMeetingDto,
+      },
+    });
+  }
 }
