@@ -9,76 +9,82 @@ Online collaborative tool that facilitates meeting scheduling, built using Node.
 
 ## Table of Contents
 
+- [Requirements](#requirements)
 - [Initial Setup](#initial-setup)
-  - [Requirements](#requirements)
   - [API](#api)
   - [Frontend](#frontend)
 - [Running](#running)
 - [Testing](#testing)
-- [Seed Data](#seed-data)
 
-## Initial Setup
-
-### Requirements
+## Requirements
 
 - Node.js
 - npm
 - PostgreSQL
 
+## Initial Setup
+
 ### API
 
 1. **Navigate to the `server` directory:**
-    ```bash
-    cd server
-    ```
+
+   ```bash
+   cd server
+   ```
 
 2. **Initialize the npm project:**
-    ```bash
-    npm install
-    ```
+
+   ```bash
+   npm install
+   ```
 
 3. **Set up your `.env` file inside the root directory:**
-    ```env
-    DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
-    ```
+
+   ```env
+   DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+   ```
 
 4. **Generate the Prisma client:**
-    ```bash
-    npx prisma generate
-    ```
+
+   ```bash
+   npx prisma generate
+   ```
 
 5. **Run the migration:**
-    ```bash
-    npx prisma migrate dev
-    ```
+
+   ```bash
+   npx prisma migrate dev
+   ```
 
 6. **Run the seed command:**
-    ```bash
-    npx prisma db seed
-    ```
+   ```bash
+   npx prisma db seed
+   ```
 
 ### Frontend
 
 1. **Navigate to the `client` directory:**
-    ```bash
-    cd client
-    ```
+
+   ```bash
+   cd client
+   ```
 
 2. **Initialize the npm project:**
-    ```bash
-    npm install
-    ```
+
+   ```bash
+   npm install
+   ```
 
 3. **Set up your `.env` file inside the `client` directory:**
-    ```env
-    REACT_APP_API_URL="http://localhost:3000/api"
-    ```
+   ```env
+   REACT_APP_API_URL="http://localhost:3000/api"
+   ```
 
 ## Running
 
 To run the server, use the following command:
 
-```bash 
+```bash
 cd server
 npm run dev
 ```
