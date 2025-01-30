@@ -28,7 +28,7 @@ export class MeetingService {
   /**
    * Create a meeting.
    * @param createMeetingDto Meeting data.
-   * @returns Created meeting.
+   * @returns Meeting IDs.
    */
   async createMeeting(createMeetingDto) {
     const publicId = Math.random().toString(36).substring(2, 8);
@@ -43,12 +43,17 @@ export class MeetingService {
 
     const privateId = publicId + Math.random().toString(36).substring(2, 8);
 
-    return this.prisma.meeting.create({
+    await this.prisma.meeting.create({
       data: {
         publicId,
         privateId,
         ...createMeetingDto,
       },
     });
+
+    return {
+      publicId,
+      privateId,
+    }
   }
 }

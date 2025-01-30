@@ -31,13 +31,11 @@ export class MeetingController {
    * @param createMeetingDto - Meeting details
    * @returns Created meeting
    * @throws Invalid request
-   * @throws Internal server error
    */
   @Post('create')
   @ApiOperation({ summary: 'Create a meeting' })
   @ApiResponse({ status: 201, description: 'Created meeting' })
   @ApiResponse({ status: 400, description: 'Invalid request' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
   async createMeeting(@Body() createMeetingDto: CreateMeetingDto) {
     return this.meetingService.createMeeting(createMeetingDto);
   }
