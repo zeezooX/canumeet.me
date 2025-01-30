@@ -41,17 +41,17 @@ model Availability {
   message     String?
   userId      Int?
 
-  meeting     Meeting  @relation(fields: [meetingId], references: [publicId])
-  ranges      Availability_Range[]
+  meeting     Meeting  @relation(fields: [meetingId], references: [publicId], onDelete: Cascade)
+  ranges      AvailabilityRange[]
 }
 
-model Availability_Range {
+model AvailabilityRange {
   rangeId       Int      @id @unique
   availabilityId String
   startTime     DateTime
   endTime       DateTime
 
-  availability  Availability @relation(fields: [availabilityId], references: [publicId])
+  availability  Availability @relation(fields: [availabilityId], references: [publicId], onDelete: Cascade)
 }
 
 model Excuse {
@@ -61,7 +61,7 @@ model Excuse {
   createdAt  DateTime @default(now())
   message    String
 
-  meeting    Meeting @relation(fields: [meetingId], references: [publicId])
+  meeting    Meeting @relation(fields: [meetingId], references: [publicId], onDelete: Cascade)
 }
 
 model Comment {
@@ -75,6 +75,6 @@ model Comment {
   parentId    Int?
 
   meeting     Meeting  @relation(fields: [meetingId], references: [publicId])
-  parent      Comment? @relation("CommentReplies", fields: [parentId], references: [commentId])
+  parent      Comment? @relation("CommentReplies", fields: [parentId], references: [commentId], onDelete: Cascade)
   replies     Comment[] @relation("CommentReplies")
 }

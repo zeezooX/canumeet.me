@@ -68,7 +68,7 @@ async function seed() {
   );
 
   // Add availability ranges
-  await prisma.availability_Range.createMany({
+  await prisma.availabilityRange.createMany({
     data: [
       {
         availabilityId: availability1.publicId,
