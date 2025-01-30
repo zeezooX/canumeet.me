@@ -74,25 +74,21 @@ async function seed() {
         availabilityId: availability1.publicId,
         startTime: new Date(new Date().setHours(9, 0, 0) + 24 * 60 * 60 * 1000 * 2), // 9:00 AM + 2 days
         endTime: new Date(new Date().setHours(11, 0, 0) + 24 * 60 * 60 * 1000 * 2), // 11:00 AM + 2 days
-        rangeId: 1,
       },
       {
         availabilityId: availability1.publicId,
         startTime: new Date(new Date().setHours(14, 0, 0) + 24 * 60 * 60 * 1000 * 2), // 2:00 PM + 2 days
         endTime: new Date(new Date().setHours(16, 0, 0) + 24 * 60 * 60 * 1000 * 2), // 4:00 PM + 2 days
-        rangeId: 2,
       },
       {
         availabilityId: availability2.publicId,
         startTime: new Date(new Date().setHours(10, 0, 0) + 24 * 60 * 60 * 1000 * 2), // 10:00 AM + 2 days
         endTime: new Date(new Date().setHours(12, 0, 0) + 24 * 60 * 60 * 1000 * 2), // 12:00 PM + 2 days
-        rangeId: 3,
       },
       {
         availabilityId: availability2.publicId,
         startTime: new Date(new Date().setHours(15, 0, 0) + 24 * 60 * 60 * 1000 * 2), // 3:00 PM + 2 days
         endTime: new Date(new Date().setHours(17, 0, 0) + 24 * 60 * 60 * 1000 * 2), // 5:00 PM + 2 days
-        rangeId: 4,
       },
     ],
   });

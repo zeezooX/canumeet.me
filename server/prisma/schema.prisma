@@ -46,7 +46,7 @@ model Availability {
 }
 
 model AvailabilityRange {
-  rangeId       Int      @id @unique
+  rangeId       Int      @id @unique @default(autoincrement())
   availabilityId String
   startTime     DateTime
   endTime       DateTime
@@ -55,7 +55,7 @@ model AvailabilityRange {
 }
 
 model Excuse {
-  excuseId   Int      @id @unique
+  excuseId   Int      @id @unique @default(autoincrement())
   owner      String
   meetingId  String
   createdAt  DateTime @default(now())
@@ -65,7 +65,7 @@ model Excuse {
 }
 
 model Comment {
-  commentId   Int      @id @unique
+  commentId   Int      @id @unique @default(autoincrement())
   isAdmin     Boolean
   isUpdate    Boolean
   owner       String
