@@ -1,15 +1,11 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { PrismaService } from '../../config/prisma.service';
 import { AdminService } from './admin.service';
 import { AdminController } from './admin.controller';
-import { ValidationMiddleware } from '../../common/validation.middleware';
+import { ValidationService } from '../../common/validation.service';
 
 @Module({
   controllers: [AdminController],
-  providers: [AdminService, PrismaService],
+  providers: [AdminService, PrismaService, ValidationService],
 })
-export class AdminModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ValidationMiddleware).forRoutes(AdminController);
-  }
-}
+export class AdminModule {}
