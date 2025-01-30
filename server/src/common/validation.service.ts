@@ -29,8 +29,8 @@ export class ValidationService {
 
       return publicId;
     }
-    if (privateId.length === 24) {
-      const publicId = privateId.slice(0, 12);
+    if (privateId.length === 16) {
+      const publicId = privateId.slice(0, 8);
 
       const availability = await this.prisma.availability.findUnique({
         where: { publicId },
