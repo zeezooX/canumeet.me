@@ -29,7 +29,7 @@ export class MeetingController {
   /**
    * Create a meeting
    * @param createMeetingDto - Meeting details
-   * @returns Created meeting
+   * @returns IDs of the created meeting
    * @throws Invalid request
    */
   @Post('create')
