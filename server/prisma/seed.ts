@@ -94,6 +94,34 @@ async function seed() {
   });
 
   console.log('Added availability ranges.');
+
+  await prisma.comment.createMany({
+    data: [
+      {
+        owner: 'Doe',
+        message: 'Can you post the slides?',
+        meetingId: meeting1.publicId,
+        isAdmin: false,
+        isUpdate: false,
+      },
+      {
+        owner: 'Alice',
+        message: 'Sure, I will post them soon.',
+        meetingId: meeting1.publicId,
+        isAdmin: true,
+        isUpdate: false,
+        parentId: 1,
+      },
+      {
+        owner: 'Doe',
+        message: 'Thanks!',
+        meetingId: meeting1.publicId,
+        isAdmin: false,
+        isUpdate: false,
+        parentId: 2,
+      },
+    ],
+  });
 }
 
 seed()

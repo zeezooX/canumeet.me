@@ -17,6 +17,9 @@ export class MeetingService {
           in: publicId,
         },
       },
+      include: {
+        comments: publicId.length === 1,
+      },
     });
 
     return meetings.map((meeting) => {
@@ -54,6 +57,6 @@ export class MeetingService {
     return {
       publicId,
       privateId,
-    }
+    };
   }
 }
