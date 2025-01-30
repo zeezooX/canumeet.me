@@ -9,9 +9,9 @@ import {
 } from 'class-validator';
 
 /**
- * Data transfer object for creating a meeting
+ * Data transfer object for modifying a meeting
  */
-export class AdminMeetingDto {
+export class ModifyMeetingDto {
   /**
    * Whether availability is enabled for this meeting
    */
@@ -168,9 +168,4 @@ export class AdminMeetingDto {
     required: false,
   })
   availabilityEnd?: string;
-
-  /**
-   * Public ID of the meeting. This is passed from the validation middleware.
-   */
-  publicId: string;
 }
