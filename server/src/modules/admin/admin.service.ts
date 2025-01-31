@@ -20,11 +20,7 @@ export class AdminService {
           },
         },
         excuses: true,
-        comments: {
-          include: {
-            replies: true,
-          },
-        },
+        comments: true,
       },
     });
   }
