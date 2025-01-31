@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MeetingService } from './meeting.service';
 import { GetMeetingsDto } from './dto/get-meeting.dto';
@@ -23,7 +23,14 @@ export class MeetingController {
     if (typeof query.publicId === 'string') {
       query.publicId = [query.publicId];
     }
-    return this.meetingService.getMeetings(query.publicId);
+
+    const meetings = await this.meetingService.getMeetings(query.publicId);
+
+    if (meetings.length === 0) {
+      throw new BadRequestException('Meeting not found');
+    }
+
+    return meetings;
   }
 
   /**

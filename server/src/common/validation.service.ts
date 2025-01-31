@@ -7,12 +7,13 @@ export class ValidationService {
 
   /**
    * Get the public ID from the private ID
-   * @param privateId The private ID
+   * @param privateId - The private ID
+   * @param length - The length of the private ID, 12 for meetings and 16 for availabilities
    * @returns The public ID
    * @throws BadRequestException
    */
-  async getPublicId(privateId: string): Promise<string> {
-    if (privateId.length === 12) {
+  async getPublicId(privateId: string, length: number = 12): Promise<string> {
+    if (privateId.length === 12 && length === 12) {
       const publicId = privateId.slice(0, 6);
 
       const meeting = await this.prisma.meeting.findUnique({
@@ -29,7 +30,7 @@ export class ValidationService {
 
       return publicId;
     }
-    if (privateId.length === 16) {
+    if (privateId.length === 16 && length === 16) {
       const publicId = privateId.slice(0, 8);
 
       const availability = await this.prisma.availability.findUnique({

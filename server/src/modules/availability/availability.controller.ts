@@ -56,12 +56,8 @@ export class AvailabilityController {
     example: '00000000abcdefgh',
     required: true,
   })
-  async getAvailability(
-    @Param('privateId') privateId: string,
-  ) {
-    const publicId = await this.validationService.getPublicId(
-      privateId,
-    );
+  async getAvailability(@Param('privateId') privateId: string) {
+    const publicId = await this.validationService.getPublicId(privateId, 16);
     return this.availabilityService.getAvailability(publicId);
   }
 
@@ -86,9 +82,7 @@ export class AvailabilityController {
     @Param('privateId') privateId: string,
     @Body() availabilityDto: AvailabilityDto,
   ) {
-    const publicId = await this.validationService.getPublicId(
-      privateId,
-    );
+    const publicId = await this.validationService.getPublicId(privateId, 16);
     return this.availabilityService.modifyAvailability(
       publicId,
       availabilityDto,

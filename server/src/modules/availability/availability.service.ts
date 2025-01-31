@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../config/prisma.service';
 
 @Injectable()
@@ -12,6 +12,14 @@ export class AvailabilityService {
    * @returns IDs of the availability.
    */
   async createAvailability(meetingPublicId: string, availabilityDto) {
+    const meeting = await this.prisma.meeting.findUnique({
+      where: { publicId: meetingPublicId },
+    });
+
+    if (!meeting) {
+      throw new BadRequestException('Meeting not found');
+    }
+
     const publicId = Math.random().toString(36).substring(2, 10);
 
     const availability = await this.prisma.availability.findUnique({
