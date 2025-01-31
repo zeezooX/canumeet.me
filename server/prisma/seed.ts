@@ -122,6 +122,25 @@ async function seed() {
       },
     ],
   });
+
+  console.log('Added comments.');
+
+  await prisma.excuse.createMany({
+    data: [
+      {
+        owner: 'Doe',
+        message: 'I will be late by 15 minutes.',
+        meetingId: meeting1.publicId,
+      },
+      {
+        owner: 'Eve',
+        message: 'I have a doctor\'s appointment.',
+        meetingId: meeting1.publicId,
+      },
+    ],
+  });
+
+  console.log('Added excuses.');
 }
 
 seed()
