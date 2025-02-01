@@ -98,6 +98,8 @@ export class ResponseController {
     @Param('parentId') parentId: number,
     @Body() sendResponseDto: SendResponseDto,
   ) {
+    parentId = parseInt(parentId.toString(), 10);
+    
     if (meetingId.length === 6) {
       return this.responseService.sendComment(meetingId, sendResponseDto, parentId);
     }
