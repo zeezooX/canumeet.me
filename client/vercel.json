@@ -1,8 +1,8 @@
 {
   "rewrites": [
-    {"source": "/api", "destination": "https://canumeetme-api.koyeb.app/api"},
-    {"source": "/api/", "destination": "https://canumeetme-api.koyeb.app/api/"},
-    {"source": "/api/(.*)", "destination": "https://canumeetme-api.koyeb.app/api/$1"},
-    {"source": "/(.*)", "destination": "/$1"}
+    { "source": "/api", "destination": "https://canumeetme-api.koyeb.app/api" },
+    { "source": "/api/", "destination": "https://canumeetme-api.koyeb.app/api/" },
+    { "source": "/api/(.*)", "destination": "https://canumeetme-api.koyeb.app/api/$1" },
+    { "source": "/(.*)", "destination": "/$1" }
   ]
 }

@@ -5,7 +5,7 @@
 
 ![CanUMeetMe](client/src/assets/logo.png)
 
-Online collaborative tool that facilitates meeting scheduling, built using Node.js, NestJS, Prisma, PostgreSQL, and React.
+Online collaborative tool that facilitates meeting scheduling, built using Node.js, NestJS, Prisma, PostgreSQL, and Next.js.
 
 ## Table of Contents
 
@@ -77,7 +77,7 @@ Online collaborative tool that facilitates meeting scheduling, built using Node.
 
 3. **Set up your `.env` file inside the `client` directory:**
    ```env
-   REACT_APP_API_URL="http://localhost:3000/api"
+   NEXT_PUBLIC_API_URL="http://localhost:3000/api"
    ```
 
 ## Running
@@ -95,5 +95,5 @@ To run the client, use the following command:
 
 ```bash
 cd client
-npm start
+npm run dev
 ```
