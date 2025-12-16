@@ -1,15 +1,15 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ValidationService } from '../../common/validation.service';
 import { AdminService } from './admin.service';
 import { ModifyMeetingDto } from './dto/modify-meeting.dto';
-import { ValidationService } from '../../common/validation.service';
 
-@Controller('meeting')
 @ApiTags('admin')
+@Controller('meeting')
 export class AdminController {
   constructor(
     private readonly adminService: AdminService,
-    private readonly validationService: ValidationService,
+    private readonly validationService: ValidationService
   ) {}
 
   /**
@@ -18,10 +18,7 @@ export class AdminController {
    * @returns Meeting responses
    * @throws Invalid request
    */
-  @Get(':privateId/admin')
   @ApiOperation({ summary: 'Get meeting responses' })
-  @ApiResponse({ status: 200, description: 'Meeting responses' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'privateId',
     type: String,
@@ -29,6 +26,9 @@ export class AdminController {
     example: '000000abcdef',
     required: true,
   })
+  @ApiResponse({ status: 200, description: 'Meeting responses' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Get(':privateId/admin')
   async getResponses(@Param('privateId') privateId: string) {
     const publicId = await this.validationService.getPublicId(privateId);
     return this.adminService.getResponses(publicId);
@@ -41,10 +41,7 @@ export class AdminController {
    * @returns Modified meeting
    * @throws Invalid request
    */
-  @Post(':privateId/admin')
   @ApiOperation({ summary: 'Modify meeting' })
-  @ApiResponse({ status: 201, description: 'Meeting modified' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'privateId',
     type: String,
@@ -52,9 +49,12 @@ export class AdminController {
     example: '000000abcdef',
     required: true,
   })
+  @ApiResponse({ status: 201, description: 'Meeting modified' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Post(':privateId/admin')
   async modifyMeeting(
-    @Param('privateId') privateId: string,
     @Body() modifyMeetingDto: ModifyMeetingDto,
+    @Param('privateId') privateId: string
   ) {
     const publicId = await this.validationService.getPublicId(privateId);
     return this.adminService.modifyMeeting(publicId, modifyMeetingDto);
@@ -66,10 +66,7 @@ export class AdminController {
    * @returns Meeting deleted
    * @throws Invalid request
    */
-  @Post(':privateId/delete')
   @ApiOperation({ summary: 'Delete meeting' })
-  @ApiResponse({ status: 201, description: 'Meeting deleted' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'privateId',
     type: String,
@@ -77,6 +74,9 @@ export class AdminController {
     example: '000000abcdef',
     required: true,
   })
+  @ApiResponse({ status: 201, description: 'Meeting deleted' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Post(':privateId/delete')
   async deleteMeeting(@Param('privateId') privateId: string) {
     const publicId = await this.validationService.getPublicId(privateId);
     return this.adminService.deleteMeeting(publicId);

@@ -1,15 +1,15 @@
-import { Controller, Param, Post, Body } from '@nestjs/common';
-import { ResponseService } from './response.service';
-import { ValidationService } from '../../common/validation.service';
+import { Body, Controller, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ValidationService } from '../../common/validation.service';
 import { SendResponseDto } from './dto/send-response.dto';
+import { ResponseService } from './response.service';
 
-@Controller('meeting')
 @ApiTags('response')
+@Controller('meeting')
 export class ResponseController {
   constructor(
     private readonly responseService: ResponseService,
-    private readonly validationService: ValidationService,
+    private readonly validationService: ValidationService
   ) {}
 
   /**
@@ -19,10 +19,7 @@ export class ResponseController {
    * @throws Invalid request
    * @returns Excuse sent
    */
-  @Post('/:publicId/excuse')
   @ApiOperation({ summary: 'Send excuse for a meeting' })
-  @ApiResponse({ status: 201, description: 'Excuse sent' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'publicId',
     type: String,
@@ -30,10 +27,10 @@ export class ResponseController {
     example: '000000',
     required: true,
   })
-  async sendExcuse(
-    @Param('publicId') publicId: string,
-    @Body() sendResponseDto: SendResponseDto,
-  ) {
+  @ApiResponse({ status: 201, description: 'Excuse sent' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Post('/:publicId/excuse')
+  async sendExcuse(@Body() sendResponseDto: SendResponseDto, @Param('publicId') publicId: string) {
     return this.responseService.sendExcuse(publicId, sendResponseDto);
   }
 
@@ -44,10 +41,7 @@ export class ResponseController {
    * @throws Invalid request
    * @returns Comment sent
    */
-  @Post('/:meetingId/comment')
   @ApiOperation({ summary: 'Send comment for a meeting' })
-  @ApiResponse({ status: 201, description: 'Comment sent' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'meetingId',
     type: String,
@@ -55,9 +49,12 @@ export class ResponseController {
     example: '000000',
     required: true,
   })
+  @ApiResponse({ status: 201, description: 'Comment sent' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Post('/:meetingId/comment')
   async sendComment(
-    @Param('meetingId') meetingId: string,
     @Body() sendResponseDto: SendResponseDto,
+    @Param('meetingId') meetingId: string
   ) {
     if (meetingId.length === 6) {
       return this.responseService.sendComment(meetingId, sendResponseDto);
@@ -75,10 +72,7 @@ export class ResponseController {
    * @throws Invalid request
    * @returns Reply sent
    */
-  @Post('/:meetingId/comment/:parentId')
   @ApiOperation({ summary: 'Send reply for a comment' })
-  @ApiResponse({ status: 201, description: 'Reply sent' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'meetingId',
     type: String,
@@ -93,13 +87,16 @@ export class ResponseController {
     example: 1,
     required: true,
   })
+  @ApiResponse({ status: 201, description: 'Reply sent' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Post('/:meetingId/comment/:parentId')
   async sendReply(
-    @Param('meetingId') meetingId: string,
-    @Param('parentId') parentId: number,
     @Body() sendResponseDto: SendResponseDto,
+    @Param('meetingId') meetingId: string,
+    @Param('parentId') parentId: number
   ) {
     parentId = parseInt(parentId.toString(), 10);
-    
+
     if (meetingId.length === 6) {
       return this.responseService.sendComment(meetingId, sendResponseDto, parentId);
     }
@@ -115,10 +112,7 @@ export class ResponseController {
    * @throws Invalid request
    * @returns Update sent
    */
-  @Post('/:privateId/update')
   @ApiOperation({ summary: 'Send an update about a meeting' })
-  @ApiResponse({ status: 201, description: 'Update sent' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'privateId',
     type: String,
@@ -126,9 +120,12 @@ export class ResponseController {
     example: '000000abcdef',
     required: true,
   })
+  @ApiResponse({ status: 201, description: 'Update sent' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Post('/:privateId/update')
   async updateResponse(
-    @Param('privateId') privateId: string,
     @Body() sendResponseDto: SendResponseDto,
+    @Param('privateId') privateId: string
   ) {
     const publicId = await this.validationService.getPublicId(privateId, 12);
     return this.responseService.sendComment(publicId, sendResponseDto, null, false, true);

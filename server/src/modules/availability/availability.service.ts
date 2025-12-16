@@ -65,7 +65,7 @@ export class AvailabilityService {
       where: { publicId },
       include: {
         ranges: true,
-      }
+      },
     });
   }
 

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from '../../config/prisma.service';
-import { AvailabilityService } from './availability.service';
-import { AvailabilityController } from './availability.controller';
 import { ValidationService } from '../../common/validation.service';
+import { PrismaService } from '../../config/prisma.service';
+import { AvailabilityController } from './availability.controller';
+import { AvailabilityService } from './availability.service';
 
 @Module({
   controllers: [AvailabilityController],

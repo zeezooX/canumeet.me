@@ -1,4 +1,8 @@
 {
+  "semi": true,
   "singleQuote": true,
-  "trailingComma": "all"
+  "tabWidth": 2,
+  "printWidth": 100,
+  "trailingComma": "es5",
+  "plugins": ["prettier-plugin-typescript-sort-decorators", "prettier-plugin-organize-imports"]
 }

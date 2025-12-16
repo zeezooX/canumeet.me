@@ -1,15 +1,15 @@
-import { Controller, Post, Get, Param, Body } from '@nestjs/common';
-import { AvailabilityService } from './availability.service';
-import { AvailabilityDto } from './dto/availability.dto';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationService } from '../../common/validation.service';
+import { AvailabilityService } from './availability.service';
+import { AvailabilityDto } from './dto/availability.dto';
 
-@Controller('meeting')
 @ApiTags('availability')
+@Controller('meeting')
 export class AvailabilityController {
   constructor(
     private readonly availabilityService: AvailabilityService,
-    private readonly validationService: ValidationService,
+    private readonly validationService: ValidationService
   ) {}
 
   /**
@@ -19,10 +19,7 @@ export class AvailabilityController {
    * @returns IDs of the availability
    * @throws Invalid request
    */
-  @Post('/:meetingPublicId/available')
   @ApiOperation({ summary: 'Create availability' })
-  @ApiResponse({ status: 201, description: 'Availability created' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'meetingPublicId',
     type: String,
@@ -30,14 +27,14 @@ export class AvailabilityController {
     example: '000000',
     required: true,
   })
+  @ApiResponse({ status: 201, description: 'Availability created' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Post('/:meetingPublicId/available')
   async createAvailability(
-    @Param('meetingPublicId') meetingPublicId: string,
     @Body() availabilityDto: AvailabilityDto,
+    @Param('meetingPublicId') meetingPublicId: string
   ) {
-    return this.availabilityService.createAvailability(
-      meetingPublicId,
-      availabilityDto,
-    );
+    return this.availabilityService.createAvailability(meetingPublicId, availabilityDto);
   }
 
   /**
@@ -45,10 +42,7 @@ export class AvailabilityController {
    * @param privateId - Private ID of the availability
    * @returns Availability details
    */
-  @Get('/:meetingPublicId/available/:privateId')
   @ApiOperation({ summary: 'Get availability' })
-  @ApiResponse({ status: 200, description: 'Availability details' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'privateId',
     type: String,
@@ -56,6 +50,9 @@ export class AvailabilityController {
     example: '00000000abcdefgh',
     required: true,
   })
+  @ApiResponse({ status: 200, description: 'Availability details' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Get('/:meetingPublicId/available/:privateId')
   async getAvailability(@Param('privateId') privateId: string) {
     const publicId = await this.validationService.getPublicId(privateId, 16);
     return this.availabilityService.getAvailability(publicId);
@@ -67,10 +64,7 @@ export class AvailabilityController {
    * @param availabilityDto - Availability details to modify
    * @returns Availability modified
    */
-  @Post('/:meetingPublicId/available/:privateId')
   @ApiOperation({ summary: 'Modify availability' })
-  @ApiResponse({ status: 201, description: 'Availability modified' })
-  @ApiResponse({ status: 400, description: 'Invalid request' })
   @ApiParam({
     name: 'privateId',
     type: String,
@@ -78,14 +72,14 @@ export class AvailabilityController {
     example: '00000000abcdefgh',
     required: true,
   })
+  @ApiResponse({ status: 201, description: 'Availability modified' })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @Post('/:meetingPublicId/available/:privateId')
   async modifyAvailability(
-    @Param('privateId') privateId: string,
     @Body() availabilityDto: AvailabilityDto,
+    @Param('privateId') privateId: string
   ) {
     const publicId = await this.validationService.getPublicId(privateId, 16);
-    return this.availabilityService.modifyAvailability(
-      publicId,
-      availabilityDto,
-    );
+    return this.availabilityService.modifyAvailability(publicId, availabilityDto);
   }
 }

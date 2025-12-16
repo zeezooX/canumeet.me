@@ -63,9 +63,7 @@ async function seed() {
     },
   });
 
-  console.log(
-    `Added availabilities: ${availability1.publicId}, ${availability2.publicId}`,
-  );
+  console.log(`Added availabilities: ${availability1.publicId}, ${availability2.publicId}`);
 
   // Add availability ranges
   await prisma.availabilityRange.createMany({
@@ -134,7 +132,7 @@ async function seed() {
       },
       {
         owner: 'Eve',
-        message: 'I have a doctor\'s appointment.',
+        message: "I have a doctor's appointment.",
         meetingId: meeting1.publicId,
       },
     ],

@@ -20,7 +20,7 @@ export class ResponseService {
     sendResponseDto: SendResponseDto,
     parentId: number = null,
     isAdmin: boolean = false,
-    isUpdate: boolean = false,
+    isUpdate: boolean = false
   ) {
     await this.prisma.comment.create({
       data: {
