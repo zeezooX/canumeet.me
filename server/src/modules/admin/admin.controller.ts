@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationService } from '../../common/validation.service';
 import { AdminService } from './admin.service';
+import { GetResponsesDto } from './dto/get-responses.dto';
 import { ModifyMeetingDto } from './dto/modify-meeting.dto';
 
 @ApiTags('admin')
@@ -26,7 +27,7 @@ export class AdminController {
     example: '000000abcdef',
     required: true,
   })
-  @ApiResponse({ status: 200, description: 'Meeting responses' })
+  @ApiResponse({ status: 200, description: 'Meeting responses', type: GetResponsesDto })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Get(':privateId/admin')
   async getResponses(@Param('privateId') privateId: string) {
@@ -49,7 +50,7 @@ export class AdminController {
     example: '000000abcdef',
     required: true,
   })
-  @ApiResponse({ status: 201, description: 'Meeting modified' })
+  @ApiResponse({ status: 201, description: 'Meeting modified', type: ModifyMeetingDto })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post(':privateId/admin')
   async modifyMeeting(

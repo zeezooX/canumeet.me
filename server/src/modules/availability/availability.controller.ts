@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { GetAvailabilityResponseDto } from '../../common/dto/get-availability-response.dto';
 import { ValidationService } from '../../common/validation.service';
 import { AvailabilityService } from './availability.service';
 import { AvailabilityDto } from './dto/availability.dto';
@@ -27,7 +28,11 @@ export class AvailabilityController {
     example: '000000',
     required: true,
   })
-  @ApiResponse({ status: 201, description: 'Availability created' })
+  @ApiResponse({
+    status: 201,
+    description: 'Availability created',
+    type: GetAvailabilityResponseDto,
+  })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post('/:meetingPublicId/available')
   async createAvailability(
@@ -50,7 +55,11 @@ export class AvailabilityController {
     example: '00000000abcdefgh',
     required: true,
   })
-  @ApiResponse({ status: 200, description: 'Availability details' })
+  @ApiResponse({
+    status: 200,
+    description: 'Availability details',
+    type: GetAvailabilityResponseDto,
+  })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Get('/:meetingPublicId/available/:privateId')
   async getAvailability(@Param('privateId') privateId: string) {
@@ -72,7 +81,11 @@ export class AvailabilityController {
     example: '00000000abcdefgh',
     required: true,
   })
-  @ApiResponse({ status: 201, description: 'Availability modified' })
+  @ApiResponse({
+    status: 201,
+    description: 'Availability modified',
+    type: GetAvailabilityResponseDto,
+  })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post('/:meetingPublicId/available/:privateId')
   async modifyAvailability(

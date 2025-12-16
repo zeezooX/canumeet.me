@@ -1,5 +1,6 @@
 import { Body, Controller, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { MessageResponseDto } from '../../common/dto/message-response.dto';
 import { ValidationService } from '../../common/validation.service';
 import { SendResponseDto } from './dto/send-response.dto';
 import { ResponseService } from './response.service';
@@ -27,7 +28,7 @@ export class ResponseController {
     example: '000000',
     required: true,
   })
-  @ApiResponse({ status: 201, description: 'Excuse sent' })
+  @ApiResponse({ status: 201, description: 'Excuse sent', type: MessageResponseDto })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post('/:publicId/excuse')
   async sendExcuse(@Body() sendResponseDto: SendResponseDto, @Param('publicId') publicId: string) {
@@ -49,7 +50,7 @@ export class ResponseController {
     example: '000000',
     required: true,
   })
-  @ApiResponse({ status: 201, description: 'Comment sent' })
+  @ApiResponse({ status: 201, description: 'Comment sent', type: MessageResponseDto })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post('/:meetingId/comment')
   async sendComment(
@@ -87,7 +88,7 @@ export class ResponseController {
     example: 1,
     required: true,
   })
-  @ApiResponse({ status: 201, description: 'Reply sent' })
+  @ApiResponse({ status: 201, description: 'Reply sent', type: MessageResponseDto })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post('/:meetingId/comment/:parentId')
   async sendReply(
@@ -120,7 +121,7 @@ export class ResponseController {
     example: '000000abcdef',
     required: true,
   })
-  @ApiResponse({ status: 201, description: 'Update sent' })
+  @ApiResponse({ status: 201, description: 'Update sent', type: MessageResponseDto })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post('/:privateId/update')
   async updateResponse(
