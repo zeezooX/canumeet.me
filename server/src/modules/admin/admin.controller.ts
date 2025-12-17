@@ -3,7 +3,7 @@ import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationService } from '../../common/validation.service';
 import { AdminService } from './admin.service';
 import { GetResponsesDto } from './dto/get-responses.dto';
-import { ModifyMeetingDto } from './dto/modify-meeting.dto';
+import { UpdateMeetingDto } from './dto/update-meeting.dto';
 
 @ApiTags('admin')
 @Controller('meeting')
@@ -50,11 +50,11 @@ export class AdminController {
     example: '000000abcdef',
     required: true,
   })
-  @ApiResponse({ status: 201, description: 'Meeting modified', type: ModifyMeetingDto })
+  @ApiResponse({ status: 201, description: 'Meeting modified' })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post(':privateId/admin')
   async modifyMeeting(
-    @Body() modifyMeetingDto: ModifyMeetingDto,
+    @Body() modifyMeetingDto: UpdateMeetingDto,
     @Param('privateId') privateId: string
   ) {
     const publicId = await this.validationService.getPublicId(privateId);

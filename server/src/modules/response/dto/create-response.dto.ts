@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 /**
  * Data transfer object for sending a response (comment/update/excuse)
  */
-export class SendResponseDto {
+export class CreateResponseDto {
   /**
    * Owner of the response (comment/update/excuse)
    */

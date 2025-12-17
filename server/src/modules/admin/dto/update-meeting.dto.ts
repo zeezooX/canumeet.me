@@ -4,7 +4,7 @@ import { IsBoolean, IsDateString, IsInt, IsOptional, IsPositive, IsString } from
 /**
  * Data transfer object for modifying a meeting
  */
-export class ModifyMeetingDto {
+export class UpdateMeetingDto {
   /**
    * Whether availability is enabled for this meeting
    */

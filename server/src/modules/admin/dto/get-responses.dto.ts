@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CommentDto } from '../../../common/dto/comment.dto';
-import { GetAvailabilityResponseDto } from '../../../common/dto/get-availability-response.dto';
+import { GetAvailabilityDto } from '../../../common/dto/get-availability-response.dto';
+import { GetCommentDto } from '../../../common/dto/get-comment.dto';
 
-class ExcuseDto {
+class GetExcuseDto {
   @ApiProperty({ example: 1 })
   excuseId: number;
 
@@ -20,9 +20,6 @@ class ExcuseDto {
 }
 
 export class GetResponsesDto {
-  @ApiProperty({ example: 1 })
-  meetingId: number;
-
   @ApiProperty({ example: 'abc123' })
   publicId: string;
 
@@ -30,20 +27,56 @@ export class GetResponsesDto {
   privateId: string;
 
   @ApiProperty({ example: 'Team Standup Meeting' })
-  title: string;
+  name?: string;
 
-  @ApiProperty({ example: 'Monthly team sync-up', required: false })
-  description: string;
+  @ApiProperty({ example: 'Alice' })
+  owner: string;
+
+  @ApiProperty({ example: 'Monthly team sync-up' })
+  description?: string;
 
   @ApiProperty({ example: '2025-01-15T10:00:00.000Z' })
   createdAt: Date;
 
-  @ApiProperty({ type: [GetAvailabilityResponseDto] })
-  availabilities: GetAvailabilityResponseDto[];
+  @ApiProperty({ example: '2025-01-20T10:00:00.000Z' })
+  updatedAt: Date;
 
-  @ApiProperty({ type: [ExcuseDto] })
-  excuses: ExcuseDto[];
+  @ApiProperty({ example: '2025-02-20T14:00:00.000Z' })
+  date?: Date;
 
-  @ApiProperty({ type: [CommentDto] })
-  comments: CommentDto[];
+  @ApiProperty({ example: 60 })
+  durationMins?: number;
+
+  @ApiProperty({ example: true })
+  availabilityEnabled: boolean;
+
+  @ApiProperty({ example: '2025-02-01T00:00:00.000Z' })
+  availabilityDeadline?: Date;
+
+  @ApiProperty({ example: false })
+  commentsEnabled: boolean;
+
+  @ApiProperty({ example: true })
+  updatesEnabled: boolean;
+
+  @ApiProperty({ example: false })
+  excusesEnabled: boolean;
+
+  @ApiProperty({ example: '2025-02-01T09:00:00.000Z' })
+  availabilityStart?: Date;
+
+  @ApiProperty({ example: '2025-02-01T17:00:00.000Z' })
+  availabilityEnd?: Date;
+
+  @ApiProperty({ example: 42 })
+  userId?: number;
+
+  @ApiProperty({ type: [GetAvailabilityDto] })
+  availabilities: GetAvailabilityDto[];
+
+  @ApiProperty({ type: [GetExcuseDto] })
+  excuses: GetExcuseDto[];
+
+  @ApiProperty({ type: [GetCommentDto] })
+  comments: GetCommentDto[];
 }

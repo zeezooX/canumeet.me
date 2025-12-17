@@ -14,7 +14,7 @@ async function bootstrap() {
   const config = new DocumentBuilder().setTitle('CanUMeetMe API').setVersion('1.0').build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document, {
-    jsonDocumentUrl: 'swagger-json',
+    jsonDocumentUrl: 'api/swagger.json',
   });
 
   await app.listen(3000);

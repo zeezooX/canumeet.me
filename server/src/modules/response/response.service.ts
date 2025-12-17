@@ -1,23 +1,23 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../config/prisma.service';
-import { SendResponseDto } from './dto/send-response.dto';
+import { CreateResponseDto } from './dto/create-response.dto';
 
 @Injectable()
 export class ResponseService {
   constructor(private readonly prisma: PrismaService) {}
 
-  /*
-   * Send comment for a meeting
-   * @param publicId - Public ID of the meeting
-   * @param sendResponseDto - Comment details
-   * @param parentId - Parent comment ID to reply to
-   * @param isAdmin - Whether the comment is from an admin
-   * @param isUpdate - Whether the comment is an update
-   * @returns Comment sent
+  /**
+   * Send comment for a meeting.
+   * @param publicId - Public ID of the meeting.
+   * @param sendResponseDto - Comment details.
+   * @param parentId - Parent comment ID to reply to.
+   * @param isAdmin - Whether the comment is from an admin.
+   * @param isUpdate - Whether the comment is an update.
+   * @returns Success message.
    */
   async sendComment(
     publicId: string,
-    sendResponseDto: SendResponseDto,
+    sendResponseDto: CreateResponseDto,
     parentId: number = null,
     isAdmin: boolean = false,
     isUpdate: boolean = false
@@ -45,13 +45,13 @@ export class ResponseService {
     return { message: 'Response sent' };
   }
 
-  /*
-   * Send excuse for a meeting
-   * @param publicId - Public ID of the meeting
-   * @param sendResponseDto - Excuse details
-   * @returns Excuse sent
+  /**
+   * Send excuse for a meeting.
+   * @param publicId - Public ID of the meeting.
+   * @param sendResponseDto - Excuse details.
+   * @returns Success message.
    */
-  async sendExcuse(publicId: string, sendResponseDto: SendResponseDto) {
+  async sendExcuse(publicId: string, sendResponseDto: CreateResponseDto) {
     const meeting = await this.prisma.meeting.findUnique({
       where: {
         publicId,

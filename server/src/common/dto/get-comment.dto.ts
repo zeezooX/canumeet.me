@@ -1,14 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CommentDto {
+export class GetCommentDto {
   @ApiProperty({ example: 1 })
   commentId: number;
 
   @ApiProperty({ example: 1 })
   meetingId: number;
 
-  @ApiProperty({ example: 1, required: false })
-  parentId: number;
+  @ApiProperty({ example: 1 })
+  parentId?: number;
 
   @ApiProperty({ example: 'John Doe' })
   owner: string;

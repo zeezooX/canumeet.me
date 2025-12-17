@@ -12,7 +12,7 @@ import {
 /**
  * Data transfer object for availability range
  */
-class AvailabilityRangeDto {
+class CreateRangeDto {
   /**
    * Start time of the availability range
    */
@@ -43,7 +43,7 @@ class AvailabilityRangeDto {
 /**
  * Data transfer object for availability
  */
-export class AvailabilityDto {
+export class CreateAvailabilityDto {
   /**
    * Owner of the availability
    */
@@ -74,12 +74,12 @@ export class AvailabilityDto {
    * Availability ranges
    */
   @ApiProperty({
-    type: [AvailabilityRangeDto],
+    type: [CreateRangeDto],
     description: 'Availability ranges',
     required: true,
   })
   @IsArray()
-  @Type(() => AvailabilityRangeDto)
+  @Type(() => CreateRangeDto)
   @ValidateNested({ each: true })
-  ranges: AvailabilityRangeDto[];
+  ranges: CreateRangeDto[];
 }

@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { GetAvailabilityResponseDto } from '../../common/dto/get-availability-response.dto';
+import { GetIdsDto } from 'src/common/dto/get-ids.dto';
+import { GetAvailabilityDto } from '../../common/dto/get-availability-response.dto';
 import { ValidationService } from '../../common/validation.service';
 import { AvailabilityService } from './availability.service';
-import { AvailabilityDto } from './dto/availability.dto';
+import { CreateAvailabilityDto } from './dto/create-availability.dto';
 
 @ApiTags('availability')
 @Controller('meeting')
@@ -31,12 +32,12 @@ export class AvailabilityController {
   @ApiResponse({
     status: 201,
     description: 'Availability created',
-    type: GetAvailabilityResponseDto,
+    type: GetIdsDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post('/:meetingPublicId/available')
   async createAvailability(
-    @Body() availabilityDto: AvailabilityDto,
+    @Body() availabilityDto: CreateAvailabilityDto,
     @Param('meetingPublicId') meetingPublicId: string
   ) {
     return this.availabilityService.createAvailability(meetingPublicId, availabilityDto);
@@ -58,7 +59,7 @@ export class AvailabilityController {
   @ApiResponse({
     status: 200,
     description: 'Availability details',
-    type: GetAvailabilityResponseDto,
+    type: GetAvailabilityDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Get('/:meetingPublicId/available/:privateId')
@@ -84,12 +85,11 @@ export class AvailabilityController {
   @ApiResponse({
     status: 201,
     description: 'Availability modified',
-    type: GetAvailabilityResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post('/:meetingPublicId/available/:privateId')
   async modifyAvailability(
-    @Body() availabilityDto: AvailabilityDto,
+    @Body() availabilityDto: CreateAvailabilityDto,
     @Param('privateId') privateId: string
   ) {
     const publicId = await this.validationService.getPublicId(privateId, 16);

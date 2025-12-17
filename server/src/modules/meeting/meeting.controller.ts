@@ -1,9 +1,9 @@
 import { BadRequestException, Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { IdsResponseDto } from 'src/common/dto/ids-response.dto';
+import { GetIdsDto } from 'src/common/dto/get-ids.dto';
 import { CreateMeetingDto } from './dto/create-meeting.dto';
-import { GetMeetingsDto } from './dto/get-meeting.dto';
-import { GetMeetingsResponseDto } from './dto/get-meetings-response.dto';
+import { GetMeetingDto } from './dto/get-meeting.dto';
+import { GetMeetingsParamsDto } from './dto/get-meetings-params.dto';
 import { MeetingService } from './meeting.service';
 
 @ApiTags('meeting')
@@ -21,12 +21,12 @@ export class MeetingController {
   @ApiResponse({
     status: 200,
     description: 'Meeting details',
-    type: GetMeetingsResponseDto,
+    type: GetMeetingDto,
     isArray: true,
   })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Get()
-  async getMeetings(@Query() query: GetMeetingsDto) {
+  async getMeetings(@Query() query: GetMeetingsParamsDto) {
     if (typeof query.publicId === 'string') {
       query.publicId = [query.publicId];
     }
@@ -47,7 +47,7 @@ export class MeetingController {
    * @throws Invalid request
    */
   @ApiOperation({ summary: 'Create a meeting' })
-  @ApiResponse({ status: 201, description: 'Created meeting', type: IdsResponseDto })
+  @ApiResponse({ status: 201, description: 'Created meeting', type: GetIdsDto })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   @Post('create')
   async createMeeting(@Body() createMeetingDto: CreateMeetingDto) {
