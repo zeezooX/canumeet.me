@@ -1,0 +1,29 @@
+export interface GetRange {
+  rangeId: number;
+  availabilityId: number;
+  start: string;
+  end: string;
+}
+
+export interface CreateRange {
+  startTime: string;
+  endTime: string;
+}
+
+export interface CreateAvailability {
+  owner: string;
+  message?: string;
+  ranges: CreateRange[];
+}
+
+export interface GetAvailability {
+  meetingId: number;
+  publicId: string;
+  privateId: string;
+  owner: string;
+  createdAt: Date;
+  updatedAt: Date;
+  message?: string;
+  userId?: number;
+  ranges: GetRange[];
+}
