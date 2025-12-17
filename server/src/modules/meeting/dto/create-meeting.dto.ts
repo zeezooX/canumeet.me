@@ -8,6 +8,7 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
+import { IsBefore } from 'src/common/is-before.decorator';
 
 /**
  * Data transfer object for creating a meeting
@@ -37,6 +38,7 @@ export class CreateMeetingDto {
   })
   @IsDateString()
   @IsOptional()
+  @IsBefore('availabilityStart')
   availabilityDeadline?: string;
 
   /**
@@ -155,6 +157,7 @@ export class CreateMeetingDto {
   })
   @IsDateString()
   @IsOptional()
+  @IsBefore('availabilityEnd')
   availabilityStart?: string;
 
   /**

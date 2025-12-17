@@ -8,6 +8,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
+import { IsBefore } from 'src/common/is-before.decorator';
 
 /**
  * Data transfer object for availability range
@@ -24,6 +25,7 @@ class CreateRangeDto {
   })
   @IsDateString()
   @IsNotEmpty()
+  @IsBefore('endTime')
   startTime: string;
 
   /**
