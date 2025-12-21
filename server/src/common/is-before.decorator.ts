@@ -6,7 +6,7 @@ import { registerDecorator, ValidationArguments, ValidationOptions } from 'class
  * @param validationOptions - Additional validation options
  */
 export function IsBefore(property: string, validationOptions?: ValidationOptions) {
-  return function (object: Object, propertyName: string) {
+  return function (object: object, propertyName: string) {
     registerDecorator({
       name: 'isBefore',
       target: object.constructor,

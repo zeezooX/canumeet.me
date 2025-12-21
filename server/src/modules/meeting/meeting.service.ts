@@ -23,8 +23,8 @@ export class MeetingService {
     });
 
     return meetings.map((meeting) => {
-      const { privateId, ...rest } = meeting;
-      return rest;
+      delete meeting.privateId;
+      return meeting;
     });
   }
 
