@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "shadcn": {
+      "command": "npx",
+      "args": ["-y", "shadcn@latest", "mcp"],
+      "cwd": "${workspaceFolder}/client"
+    },
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"],
+      "cwd": "${workspaceFolder}/client"
+    }
+  }
+}
