@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { getApiUrl } from '@/lib';
+import { addToList, getApiUrl, getList } from '@/lib';
 import type { GetMeeting } from '@/types';
 
 /**
@@ -24,5 +24,17 @@ export async function getMeetings(publicIds: string[]): Promise<GetMeeting[]> {
     throw new Error(`Failed to get meetings: ${response.statusText}`);
   }
 
+  for (const id of publicIds) {
+    await addToList('meetingIds', id);
+  }
+
   return response.json();
+}
+
+/**
+ * Get stored meeting IDs from cookies
+ * @return Array of meeting IDs
+ */
+export async function getMeetingIds(): Promise<string[]> {
+  return getList<string>('meetingIds');
 }

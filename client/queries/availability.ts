@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { getApiUrl } from '@/lib';
+import { addToList, getApiUrl, getList } from '@/lib';
 import type { GetAvailability } from '@/types';
 
 /**
@@ -22,5 +22,15 @@ export async function getAvailability(
     throw new Error(`Failed to get availability: ${response.statusText}`);
   }
 
+  await addToList('availabilityIds', privateId);
+
   return response.json();
+}
+
+/**
+ * Get stored availability IDs from cookies
+ * @return Array of availability IDs
+ */
+export async function getAvailabilityIds(): Promise<string[]> {
+  return getList<string>('availabilityIds');
 }
