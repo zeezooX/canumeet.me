@@ -42,3 +42,21 @@ export default function ThemeSetter({ children }: Readonly<ThemeSetterProps>) {
 
   return <>{children}</>;
 }
+
+// sample usage
+// <ThemeSetter>
+//   {({ setTheme }: ThemeProps) => (
+//     <button onClick={() => setTheme?.('dark')}>
+//       Dark mode
+//     </button>
+//   )}
+// </ThemeSetter>
+
+// this is a temporary component for demonstration purposes
+export function ThemeTrigger({ setTheme, currentTheme }: Readonly<ThemeProps>) {
+  return (
+    <button onClick={() => setTheme?.(currentTheme === 'light' ? 'dark' : 'light')}>
+      Toggle Theme
+    </button>
+  );
+}

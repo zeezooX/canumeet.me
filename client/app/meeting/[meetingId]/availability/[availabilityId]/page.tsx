@@ -1,21 +1,23 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { getResponses } from '@/queries';
+import { getAvailability, getMeeting } from '@/queries';
 
 export interface Props {
   params: Promise<{
-    privateMeetingId: string;
+    meetingId: string;
+    availabilityId: string;
   }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const { privateMeetingId } = await params;
-    const responses = await getResponses(privateMeetingId);
+    const { meetingId, availabilityId } = await params;
+    const meeting = await getMeeting(meetingId);
 
-    const title = `Manage Your Meeting - CanUMeetMe`;
-    const description = `Manage your meeting on CanUMeetMe. You have ${responses.comments.length} comments and ${responses.excuses.length} excuses.`;
+    const title = `Edit Your Availability - CanUMeetMe`;
+    const meetingDisplay = meeting.name ? meeting.name : `${meeting.owner}'s meeting`;
+    const description = `Edit your availability for ${meetingDisplay} on CanUMeetMe.`;
 
     return {
       title,
@@ -23,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title,
         description,
-        url: `https://canumeetme.com/manage/${privateMeetingId}`,
+        url: `https://canumeetme.com/meeting/${meetingId}/availability/${availabilityId}`,
       },
       twitter: {
         title,
@@ -35,22 +37,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function ManageMeetingPage({ params }: Readonly<Props>) {
-  const { privateMeetingId } = await params;
+export default async function AvailabilityPage({ params }: Readonly<Props>) {
+  const { meetingId, availabilityId } = await params;
 
-  let responses;
+  let availability;
   try {
-    responses = await getResponses(privateMeetingId);
+    availability = await getAvailability(meetingId, availabilityId);
   } catch {
-    return redirect('/?removeFromPrivateMeetingIds=' + encodeURIComponent(privateMeetingId));
+    return redirect(
+      '/?removeFromAvailabilityIds=' + encodeURIComponent(`${meetingId}|${availabilityId}`)
+    );
   }
 
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center text-center">
-      <h1 className="mt-6 text-3xl font-semibold">Managing Meeting</h1>
+      <h1 className="mt-6 text-3xl font-semibold">Editing Availability</h1>
       <div className="mt-6 w-full max-w-2xl">
         <dl className="divide-y rounded-md bg-gray-500 shadow-sm">
-          {Object.entries(responses).map(([key, val]) => {
+          {Object.entries(availability).map(([key, val]) => {
             const display =
               val === null
                 ? 'null'

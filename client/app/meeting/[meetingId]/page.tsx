@@ -1,21 +1,22 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { getResponses } from '@/queries';
+import { getMeeting } from '@/queries';
 
 export interface Props {
   params: Promise<{
-    privateMeetingId: string;
+    meetingId: string;
   }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const { privateMeetingId } = await params;
-    const responses = await getResponses(privateMeetingId);
+    const { meetingId } = await params;
+    const meeting = await getMeeting(meetingId);
 
-    const title = `Manage Your Meeting - CanUMeetMe`;
-    const description = `Manage your meeting on CanUMeetMe. You have ${responses.comments.length} comments and ${responses.excuses.length} excuses.`;
+    const title =
+      (meeting.name ? `${meeting.name}` : `${meeting.owner}'s Meeting`) + ' - CanUMeetMe';
+    const description = `View and respond to ${meeting.owner}'s meeting on CanUMeetMe, no login required.`;
 
     return {
       title,
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title,
         description,
-        url: `https://canumeetme.com/manage/${privateMeetingId}`,
+        url: `https://canumeetme.com/m/${meetingId}`,
       },
       twitter: {
         title,
@@ -35,22 +36,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function ManageMeetingPage({ params }: Readonly<Props>) {
-  const { privateMeetingId } = await params;
+export default async function ViewMeetingPage({ params }: Readonly<Props>) {
+  const { meetingId } = await params;
 
-  let responses;
+  let meeting;
   try {
-    responses = await getResponses(privateMeetingId);
+    meeting = await getMeeting(meetingId);
   } catch {
-    return redirect('/?removeFromPrivateMeetingIds=' + encodeURIComponent(privateMeetingId));
+    return redirect('/?removeFromMeetingIds=' + encodeURIComponent(meetingId));
   }
 
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center text-center">
-      <h1 className="mt-6 text-3xl font-semibold">Managing Meeting</h1>
+      <h1 className="mt-6 text-3xl font-semibold">Viewing Meeting</h1>
       <div className="mt-6 w-full max-w-2xl">
         <dl className="divide-y rounded-md bg-gray-500 shadow-sm">
-          {Object.entries(responses).map(([key, val]) => {
+          {Object.entries(meeting).map(([key, val]) => {
             const display =
               val === null
                 ? 'null'

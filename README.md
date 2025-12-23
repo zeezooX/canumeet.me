@@ -3,7 +3,7 @@
 ![Client Deploy](https://deploy-badge.vercel.app/?url=https%3A%2F%2Fwww.canumeet.me%2F&name=client)
 ![Server Deploy](https://deploy-badge.vercel.app/?url=https%3A%2F%2Fwww.canumeet.me%2Fapi&name=server)
 
-![CanUMeetMe](client/assets/logo-full.png)
+![CanUMeetMe](client/assets/logo-full.svg)
 
 Online collaborative tool that facilitates meeting scheduling, built using Node.js, NestJS, Prisma, PostgreSQL, and Next.js.
 
