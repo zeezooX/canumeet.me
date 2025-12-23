@@ -13,8 +13,9 @@ export function OgLayout({ title, subtitle }: Readonly<OgLayoutProps>) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
+        backgroundColor: '#ffffff',
         background:
-          'linear-gradient(135deg, rgba(114, 1, 217, 0.15) 0%, rgba(255, 153, 43, 0.15) 100%)',
+          'linear-gradient(135deg, rgba(114, 1, 217, 0.20) 0%, rgba(255, 153, 43, 0.20) 100%)',
         fontFamily: 'system-ui, -apple-system, sans-serif',
         position: 'relative',
         padding: '80px 60px 60px 60px',
