@@ -4,8 +4,8 @@ export class GetCommentDto {
   @ApiProperty({ example: 1 })
   commentId: number;
 
-  @ApiProperty({ example: 1 })
-  meetingId: number;
+  @ApiProperty({ example: 'abc123' })
+  meetingId: string;
 
   @ApiProperty({ example: 1 })
   parentId?: number;

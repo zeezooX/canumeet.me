@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { GetAvailabilityDto } from '../../../common/dto/get-availability-response.dto';
+import { GetAvailabilityDto } from '../../../common/dto/get-availability.dto';
 import { GetCommentDto } from '../../../common/dto/get-comment.dto';
 
 class GetExcuseDto {
   @ApiProperty({ example: 1 })
   excuseId: number;
 
-  @ApiProperty({ example: 1 })
-  meetingId: number;
+  @ApiProperty({ example: 'abc123' })
+  meetingId: string;
 
   @ApiProperty({ example: 'Jane Doe' })
   owner: string;

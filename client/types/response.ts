@@ -2,14 +2,14 @@ import { GetAvailability, GetComment } from '.';
 
 export interface GetExcuse {
   excuseId: number;
-  meetingId: number;
+  meetingId: string;
   owner: string;
   message: string;
   createdAt: string;
 }
 
 export interface GetResponses {
-  meetingId: number;
+  meetingId: string;
   publicId: string;
   privateId: string;
   name?: string;

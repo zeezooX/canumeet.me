@@ -5,7 +5,7 @@ export interface GetIds {
 
 export interface GetComment {
   commentId: number;
-  meetingId: number;
+  meetingId: string;
   parentId?: number;
   owner: string;
   message: string;

@@ -17,7 +17,7 @@ export interface CreateAvailability {
 }
 
 export interface GetAvailability {
-  meetingId: number;
+  meetingId: string;
   publicId: string;
   privateId: string;
   owner: string;

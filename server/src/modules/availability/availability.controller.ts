@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetIdsDto } from 'src/common/dto/get-ids.dto';
-import { GetAvailabilityDto } from '../../common/dto/get-availability-response.dto';
+import { GetAvailabilityDto } from '../../common/dto/get-availability.dto';
 import { ValidationService } from '../../common/validation.service';
 import { AvailabilityService } from './availability.service';
 import { CreateAvailabilityDto } from './dto/create-availability.dto';

@@ -15,8 +15,8 @@ class GetRangeDto {
 }
 
 export class GetAvailabilityDto {
-  @ApiProperty({ example: 1 })
-  meetingId: number;
+  @ApiProperty({ example: 'abc123' })
+  meetingId: string;
 
   @ApiProperty({ example: 'abcdef12' })
   publicId: string;
