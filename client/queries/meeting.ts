@@ -1,11 +1,14 @@
+import { cookies } from 'next/headers';
+
 import 'server-only';
 
-import { addToList, getApiUrl, getList } from '@/lib';
+import { getApiUrl, getList } from '@/lib';
 import type { GetMeeting } from '@/types';
 
 /**
- * Get meeting details by public ID(s)
+ * Get meetings details by public IDs
  * @param publicIds Array of public IDs
+ * @return Array of meeting details
  */
 export async function getMeetings(publicIds: string[]): Promise<GetMeeting[]> {
   const params = new URLSearchParams();
@@ -24,17 +27,33 @@ export async function getMeetings(publicIds: string[]): Promise<GetMeeting[]> {
     throw new Error(`Failed to get meetings: ${response.statusText}`);
   }
 
-  for (const id of publicIds) {
-    await addToList('meetingIds', id);
+  return response.json();
+}
+
+/**
+ * Get meeting details by public ID
+ * @param publicId Public ID of the meeting
+ * @return Meeting details
+ */
+export async function getMeeting(publicId: string): Promise<GetMeeting> {
+  const url = getApiUrl(`/meeting?publicId=${publicId}`);
+  const response = await fetch(url, {
+    method: 'GET',
+    next: { tags: [`meeting-${publicId}`] },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get meeting: ${response.statusText}`);
   }
 
-  return response.json();
+  const meetings: GetMeeting[] = await response.json();
+  return meetings[0];
 }
 
 /**
  * Get stored meeting IDs from cookies
  * @return Array of meeting IDs
  */
-export async function getMeetingIds(): Promise<string[]> {
-  return getList<string>('meetingIds');
+export async function getUserMeetingIds(): Promise<string[]> {
+  return getList<string>('meetingIds', await cookies());
 }

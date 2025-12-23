@@ -1,12 +1,15 @@
+import { cookies } from 'next/headers';
+
 import 'server-only';
 
-import { addToList, getApiUrl, getList } from '@/lib';
+import { getApiUrl, getList } from '@/lib';
 import type { GetAvailability } from '@/types';
 
 /**
  * Get availability details
  * @param meetingPublicId Public ID of the meeting (not used in endpoint but kept for consistency)
  * @param privateId Private ID of the availability
+ * @return Availability details
  */
 export async function getAvailability(
   meetingPublicId: string,
@@ -22,8 +25,6 @@ export async function getAvailability(
     throw new Error(`Failed to get availability: ${response.statusText}`);
   }
 
-  await addToList('availabilityIds', privateId);
-
   return response.json();
 }
 
@@ -31,6 +32,6 @@ export async function getAvailability(
  * Get stored availability IDs from cookies
  * @return Array of availability IDs
  */
-export async function getAvailabilityIds(): Promise<string[]> {
-  return getList<string>('availabilityIds');
+export async function getUserAvailabilityIds(): Promise<string[]> {
+  return getList<string>('availabilityIds', await cookies());
 }

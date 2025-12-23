@@ -1,3 +1,5 @@
+import { cookies } from 'next/headers';
+
 import 'server-only';
 
 import { getValue } from '@/lib';
@@ -7,6 +9,6 @@ import { getValue } from '@/lib';
  * @returns Theme ('light' | 'dark') or undefined
  */
 export async function getTheme(): Promise<'light' | 'dark' | undefined> {
-  const theme = await getValue<'light' | 'dark'>('theme');
+  const theme = getValue<'light' | 'dark'>('theme', await cookies());
   return theme || 'light';
 }

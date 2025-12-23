@@ -1,5 +1,7 @@
 'use server';
 
+import { cookies } from 'next/headers';
+
 import { setValue } from '@/lib';
 
 /**
@@ -8,5 +10,5 @@ import { setValue } from '@/lib';
  * @returns void
  */
 export async function setTheme(theme: 'light' | 'dark'): Promise<void> {
-  await setValue('theme', theme);
+  setValue('theme', theme, await cookies());
 }
