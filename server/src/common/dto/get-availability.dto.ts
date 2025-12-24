@@ -4,8 +4,8 @@ class GetRangeDto {
   @ApiProperty({ example: 1 })
   rangeId: number;
 
-  @ApiProperty({ example: 1 })
-  availabilityId: number;
+  @ApiProperty({ example: 'abcdef12ghijkl34' })
+  availabilityId: string;
 
   @ApiProperty({ example: '2025-01-15T10:00:00.000Z' })
   startTime: Date;

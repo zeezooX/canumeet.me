@@ -152,7 +152,7 @@ export class CreateMeetingDto {
   @ApiProperty({
     type: Date,
     description: 'Start date for availability options',
-    example: '2025-02-10T09:00:00.000Z',
+    example: '2025-02-20T09:00:00.000Z',
     required: false,
   })
   @IsDateString()

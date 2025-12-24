@@ -1,8 +1,8 @@
 export interface GetRange {
   rangeId: number;
-  availabilityId: number;
-  start: string;
-  end: string;
+  availabilityId: string;
+  startTime: string;
+  endTime: string;
 }
 
 export interface CreateRange {
