@@ -4,7 +4,7 @@ import DefaultImage from '@/app/opengraph-image';
 
 import { Props } from './page';
 
-export const alt = 'View Meeting - CanUMeetMe';
+export const alt = 'CanUMeetMe - Find the perfect meeting time';
 export const size = {
   width: 1200,
   height: 630,
