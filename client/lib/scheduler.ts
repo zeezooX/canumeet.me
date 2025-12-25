@@ -2,22 +2,38 @@ import { Heap } from 'heap-js';
 
 import { GetAvailability, GetRange } from '@/types';
 
+/**
+ * Represents a segment of continuous availability.
+ */
 interface Segment {
   start: number;
   end: number;
   users: Set<string>;
 }
 
+/**
+ * Represents a candidate time slot with a score.
+ */
 interface CandidateSlot {
   start: number;
   end: number;
   score: number;
 }
 
+/**
+ * Converts a timestamp string to the number of minutes since the Unix epoch.
+ * @param ts - The timestamp string to convert.
+ * @returns The number of minutes since the Unix epoch.
+ */
 function toMinutes(ts: string): number {
   return Math.floor(new Date(ts).getTime() / 60000);
 }
 
+/**
+ * Builds segments of continuous availability from the given availabilities.
+ * @param availabilities - An array of user availabilities.
+ * @returns An array of segments representing continuous availability.
+ */
 function buildSegments(availabilities: GetAvailability[]): Segment[] {
   const ranges: GetRange[] = [];
   for (const availability of availabilities) {
@@ -65,10 +81,21 @@ function buildSegments(availabilities: GetAvailability[]): Segment[] {
   return segments;
 }
 
+/**
+ * Creates a max-heap for CandidateSlot objects based on their score.
+ * @returns A max-heap instance for CandidateSlot objects.
+ */
 function createMaxHeap(): Heap<CandidateSlot> {
   return new Heap<CandidateSlot>((a, b) => b.score - a.score);
 }
 
+/**
+ * Runs a sliding window algorithm to find candidate slots based on the provided scoring function.
+ * @param availabilities - An array of user availabilities.
+ * @param durationMinutes - The duration of the desired time slot in minutes.
+ * @param scoreFunc - A function that calculates a score for a given coverage map.
+ * @returns A max-heap of candidate slots scored by the provided scoring function.
+ */
 function runWindow(
   availabilities: GetAvailability[],
   durationMinutes: number,
@@ -112,6 +139,12 @@ function runWindow(
   return heap;
 }
 
+/**
+ * Finds candidate time slots where at least one user is fully available for the specified duration.
+ * @param availabilities - An array of user availabilities.
+ * @param durationMinutes - The duration of the desired time slot in minutes.
+ * @returns A max-heap of candidate slots with the number of fully available users as the score.
+ */
 export function getStrictCandidates(
   availabilities: GetAvailability[],
   durationMinutes: number
@@ -128,6 +161,13 @@ export function getStrictCandidates(
   });
 }
 
+/**
+ * Finds candidate time slots with a scoring based on partial user availability for the specified duration.
+ * @param availabilities - An array of user availabilities.
+ * @param durationMinutes - The duration of the desired time slot in minutes.
+ * @param minFraction - The minimum fraction of the duration that a user must be available to contribute to the score.
+ * @returns A max-heap of candidate slots scored by the sum of availability fractions of users.
+ */
 export function getSoftCandidates(
   availabilities: GetAvailability[],
   durationMinutes: number,

@@ -3,7 +3,7 @@ import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 
-import ThemeSetter, { ThemeTrigger } from '@/components/theme-setter';
+import ThemeSetter, { ThemeToggle } from '@/components/theme-setter';
 import { cn } from '@/lib';
 import { getTheme } from '@/queries';
 
@@ -55,7 +55,7 @@ export default async function RootLayout({
         {children}
         <div className="fixed right-4 bottom-4 z-50">
           <ThemeSetter>
-            <ThemeTrigger currentTheme={theme} />
+            <ThemeToggle currentTheme={theme} />
           </ThemeSetter>
         </div>
       </body>

@@ -23,6 +23,24 @@ export interface ThemeProps {
   currentTheme?: 'light' | 'dark';
 }
 
+/**
+ * A component that provides a way to set the theme of the application.
+ *
+ * It accepts a single child which can be either a React element or a function that
+ * receives a `setTheme` function as a prop. The `setTheme` function can be used to
+ * change the theme of the application.
+ *
+ * Example usage:
+ * ```tsx
+ * <ThemeSetter>
+ *   {({ setTheme }) => (
+ *     <button onClick={() => setTheme('dark')}>
+ *       Dark mode
+ *     </button>
+ *   )}
+ * </ThemeSetter>
+ * ```
+ */
 export default function ThemeSetter({ children }: Readonly<ThemeSetterProps>) {
   const [, startTransition] = useTransition();
 
@@ -43,17 +61,17 @@ export default function ThemeSetter({ children }: Readonly<ThemeSetterProps>) {
   return <>{children}</>;
 }
 
-// sample usage
-// <ThemeSetter>
-//   {({ setTheme }: ThemeProps) => (
-//     <button onClick={() => setTheme?.('dark')}>
-//       Dark mode
-//     </button>
-//   )}
-// </ThemeSetter>
-
-// this is a temporary component for demonstration purposes
-export function ThemeTrigger({ setTheme, currentTheme }: Readonly<ThemeProps>) {
+/**
+ * A simple button component that toggles between light and dark themes.
+ *
+ * It accepts `setTheme` and `currentTheme` as props.
+ *
+ * Example usage:
+ * ```tsx
+ * <ThemeToggle setTheme={setTheme} currentTheme="light" />
+ * ```
+ */
+export function ThemeToggle({ setTheme, currentTheme }: Readonly<ThemeProps>) {
   return (
     <button onClick={() => setTheme?.(currentTheme === 'light' ? 'dark' : 'light')}>
       Toggle Theme
