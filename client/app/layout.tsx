@@ -3,7 +3,9 @@ import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 
-import ThemeSetter, { ThemeToggle } from '@/components/theme-setter';
+import { Footer } from '@/components/common/footer';
+import { Navbar } from '@/components/common/navbar';
+import ThemeSetter, { ThemeToggle } from '@/components/common/theme-setter';
 import { cn } from '@/lib';
 import { getTheme } from '@/queries';
 
@@ -16,8 +18,8 @@ export const viewport: Viewport = {
   colorScheme: 'light dark',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 const title = 'CanUMeetMe - Schedule Meetings Effortlessly';
@@ -27,7 +29,7 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  keywords: ['canumeetme', 'can u meet me', 'can you meet me'],
+  keywords: ['canumeetme', 'can u meet me', 'can you meet me', 'meeting scheduler', 'scheduling'],
   robots: 'index',
   openGraph: {
     title,
@@ -50,9 +52,17 @@ export default async function RootLayout({
   const theme = await getTheme();
 
   return (
-    <html lang="en" className={cn(inter.variable, 'antialiased', theme)}>
-      <body>
-        {children}
+    <html
+      lang="en"
+      className={cn(inter.variable, 'scroll-smooth antialiased', theme)}
+      suppressHydrationWarning
+    >
+      <body className="min-h-dvh">
+        <div className="flex min-h-dvh flex-col">
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
         <div className="fixed right-4 bottom-4 z-50">
           <ThemeSetter>
             <ThemeToggle currentTheme={theme} />
