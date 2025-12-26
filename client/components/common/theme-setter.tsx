@@ -2,7 +2,10 @@
 
 import React, { useCallback, useTransition } from 'react';
 
+import { Moon, Sun } from 'lucide-react';
+
 import { setTheme } from '@/actions';
+import { Button } from '@/components/ui/button';
 
 function startViewTransition(callback: () => void) {
   if (document.startViewTransition) {
@@ -62,19 +65,19 @@ export default function ThemeSetter({ children }: Readonly<ThemeSetterProps>) {
 }
 
 /**
- * A simple button component that toggles between light and dark themes.
- *
- * It accepts `setTheme` and `currentTheme` as props.
- *
- * Example usage:
- * ```tsx
- * <ThemeToggle setTheme={setTheme} currentTheme="light" />
- * ```
+ * A polished theme toggle button with smooth animations.
  */
 export function ThemeToggle({ setTheme, currentTheme }: Readonly<ThemeProps>) {
   return (
-    <button onClick={() => setTheme?.(currentTheme === 'light' ? 'dark' : 'light')}>
-      Toggle Theme
-    </button>
+    <Button
+      variant="outline"
+      size="icon"
+      onClick={() => setTheme?.(currentTheme === 'light' ? 'dark' : 'light')}
+      className="size-10 rounded-full shadow-lg"
+      aria-label={`Switch to ${currentTheme === 'light' ? 'dark' : 'light'} mode`}
+    >
+      <Sun className="size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+      <Moon className="absolute size-5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+    </Button>
   );
 }
