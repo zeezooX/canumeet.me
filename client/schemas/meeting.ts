@@ -11,7 +11,10 @@ export const createMeetingSchema = z
     description: z.string().optional(),
     owner: z.string().nonempty('Owner name is required'),
     date: z.iso.datetime().optional(),
-    durationMins: z.int('Duration must be an integer').positive('Duration must be positive'),
+    durationMins: z
+      .int('Duration must be an integer')
+      .positive('Duration must be positive')
+      .optional(),
     availabilityStart: z.iso.datetime().optional(),
     availabilityEnd: z.iso.datetime().optional(),
   })
@@ -21,7 +24,7 @@ export const createMeetingSchema = z
       !data.availabilityEnd ||
       data.availabilityStart < data.availabilityEnd,
     {
-      message: 'Start of availability must be before end',
+      message: 'Start of availability window must be before end',
       path: ['availabilityEnd'],
     }
   )
@@ -31,25 +34,12 @@ export const createMeetingSchema = z
       !data.availabilityStart ||
       data.availabilityDeadline < data.availabilityStart,
     {
-      message: 'Availability deadline must be before start',
+      message: 'Deadline must be before start of availability window',
       path: ['availabilityDeadline'],
     }
   );
 
-export const updateMeetingSchema = z.object({
-  availabilityEnabled: z.boolean().optional(),
-  availabilityDeadline: z.iso.datetime().optional(),
-  commentsEnabled: z.boolean().optional(),
-  updatesEnabled: z.boolean().optional(),
-  excusesEnabled: z.boolean().optional(),
-  name: z.string().optional(),
-  description: z.string().optional(),
-  owner: z.string().optional(),
-  date: z.iso.datetime().optional(),
-  durationMins: z.number().int().positive().optional(),
-  availabilityStart: z.iso.datetime().optional(),
-  availabilityEnd: z.iso.datetime().optional(),
-});
+export const updateMeetingSchema = createMeetingSchema.partial();
 
 export type CreateMeetingFormValues = z.infer<typeof createMeetingSchema>;
 export type UpdateMeetingFormValues = z.infer<typeof updateMeetingSchema>;

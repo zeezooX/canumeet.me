@@ -5,7 +5,15 @@ import { useEffect, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AlertCircle, Bell, CalendarIcon, Clock, Loader2, MessageSquare } from 'lucide-react';
+import {
+  AlertCircle,
+  Bell,
+  CalendarClock,
+  CalendarIcon,
+  Clock,
+  Loader2,
+  MessageSquare,
+} from 'lucide-react';
 import { motion } from 'motion/react';
 import { useForm, useWatch } from 'react-hook-form';
 
@@ -57,7 +65,6 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
       commentsEnabled: true,
       updatesEnabled: true,
       excusesEnabled: true,
-      durationMins: 60,
     },
   });
 
@@ -68,6 +75,7 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
   const availabilityStart = useWatch({ control: form.control, name: 'availabilityStart' });
   const availabilityEnd = useWatch({ control: form.control, name: 'availabilityEnd' });
   const availabilityDeadline = useWatch({ control: form.control, name: 'availabilityDeadline' });
+  const meetingDate = useWatch({ control: form.control, name: 'date' });
 
   useEffect(() => {
     if (userName && !form.getValues('owner')) {
@@ -205,7 +213,7 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
               <Field>
                 <FieldLabel htmlFor="durationMins">
                   <Clock className="size-4" />
-                  Meeting Duration *
+                  Meeting Duration
                 </FieldLabel>
                 <FieldContent>
                   <div className="flex items-center gap-2">
@@ -216,7 +224,9 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
                       max={480}
                       step={15}
                       className="w-24"
-                      {...form.register('durationMins', { valueAsNumber: true })}
+                      {...form.register('durationMins', {
+                        setValueAs: (value) => (value ? Number.parseInt(value, 10) : undefined),
+                      })}
                       aria-invalid={!!form.formState.errors.durationMins}
                     />
                     <span className="text-muted-foreground text-sm">minutes</span>
@@ -268,6 +278,39 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
                   <FieldDescription>
                     Optional deadline for participants to submit availability
                   </FieldDescription>
+                </FieldContent>
+              </Field>
+
+              <Field>
+                <FieldLabel htmlFor="meetingDate">
+                  <CalendarClock className="size-4" />
+                  Meeting Date & Time
+                </FieldLabel>
+                <FieldContent>
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start">
+                    <DatePicker
+                      id="meetingDate"
+                      value={meetingDate}
+                      onChange={(date) => form.setValue('date', date)}
+                      placeholder="Select date"
+                    />
+                    <Input
+                      id="meetingTime"
+                      type="time"
+                      className="w-full sm:w-[160px]"
+                      onChange={(e) => {
+                        if (meetingDate && e.target.value) {
+                          const date = new Date(meetingDate);
+                          const [hours, minutes] = e.target.value.split(':');
+                          date.setHours(Number.parseInt(hours), Number.parseInt(minutes));
+                          form.setValue('date', date.toISOString());
+                        }
+                      }}
+                      value={meetingDate ? new Date(meetingDate).toTimeString().slice(0, 5) : ''}
+                    />
+                  </div>
+                  <FieldError errors={[form.formState.errors.date]} />
+                  <FieldDescription>If you wish to skip availability collection</FieldDescription>
                 </FieldContent>
               </Field>
             </motion.div>

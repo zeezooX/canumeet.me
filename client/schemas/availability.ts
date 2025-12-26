@@ -6,11 +6,11 @@ export const createRangeSchema = z
     endTime: z.iso.datetime(),
   })
   .refine((data) => data.startTime < data.endTime, {
-    message: 'startTime must be before endTime',
+    message: 'Start time must be before end time',
   });
 
 export const createAvailabilitySchema = z.object({
-  owner: z.string().min(1, { message: 'Owner is required' }),
+  owner: z.string().min(1, { message: 'Owner name is required' }),
   message: z.string().optional(),
   ranges: z.array(createRangeSchema),
 });
