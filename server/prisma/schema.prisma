@@ -43,6 +43,8 @@ model Availability {
 
   meeting     Meeting  @relation(fields: [meetingId], references: [publicId], onDelete: Cascade)
   ranges      AvailabilityRange[]
+
+  @@index([meetingId])
 }
 
 model AvailabilityRange {
@@ -52,6 +54,8 @@ model AvailabilityRange {
   endTime       DateTime
 
   availability  Availability @relation(fields: [availabilityId], references: [publicId], onDelete: Cascade)
+
+  @@index([availabilityId])
 }
 
 model Excuse {
@@ -62,6 +66,8 @@ model Excuse {
   message    String
 
   meeting    Meeting @relation(fields: [meetingId], references: [publicId], onDelete: Cascade)
+
+  @@index([meetingId])
 }
 
 model Comment {
@@ -74,7 +80,10 @@ model Comment {
   message     String
   parentId    Int?
 
-  meeting     Meeting  @relation(fields: [meetingId], references: [publicId])
+  meeting     Meeting  @relation(fields: [meetingId], references: [publicId], onDelete: Cascade)
   parent      Comment? @relation("CommentReplies", fields: [parentId], references: [commentId], onDelete: Cascade)
   replies     Comment[] @relation("CommentReplies")
+
+  @@index([meetingId])
+  @@index([parentId])
 }
