@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 import DefaultImage from '@/app/opengraph-image';
-import { OgLayout } from '@/components/og-layout';
+import { OgLayout } from '@/components/common/og-layout';
 import { getResponses } from '@/queries';
 
 import { Props } from './page';
