@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useForm, useWatch } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { createMeeting } from '@/actions';
 import { DatePicker } from '@/components/common/date-picker';
@@ -53,7 +54,6 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
   const [isPending, startTransition] = useTransition();
   const { userName, setUserName } = useUserName();
   const [step, setStep] = useState(1);
-  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<CreateMeetingFormValues>({
     resolver: zodResolver(createMeetingSchema),
@@ -88,7 +88,6 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
       setUserName(data.owner);
     }
 
-    setError(null);
     startTransition(async () => {
       try {
         const result = await createMeeting(data);
@@ -96,13 +95,12 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
         router.push(`/manage/${result.privateId}`);
       } catch (error) {
         console.error('Failed to create meeting:', error);
-        setError('Failed to create meeting. Please try again.');
+        toast.error('Failed to create meeting. Please try again.');
       }
     });
   };
 
   const nextStep = async () => {
-    setError(null);
     const fieldsToValidate =
       step === 1
         ? (['owner', 'name'] as const)
@@ -119,10 +117,7 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
     }
   };
 
-  const prevStep = () => {
-    setError(null);
-    setStep(step - 1);
-  };
+  const prevStep = () => setStep(step - 1);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -148,13 +143,6 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
         </div>
 
         <form className="space-y-6">
-          {error && (
-            <div className="border-destructive/50 bg-destructive/10 text-destructive flex items-start gap-2 rounded-lg border p-3 text-sm">
-              <AlertCircle className="mt-0.5 size-4 flex-shrink-0" />
-              <p>{error}</p>
-            </div>
-          )}
-
           {/* Step 1: Basic Info */}
           {step === 1 && (
             <motion.div

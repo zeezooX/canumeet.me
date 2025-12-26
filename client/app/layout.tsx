@@ -3,6 +3,8 @@ import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 
+import { Toaster } from 'sonner';
+
 import { Footer } from '@/components/common/footer';
 import { Navbar } from '@/components/common/navbar';
 import ThemeSetter, { ThemeToggle } from '@/components/common/theme-setter';
@@ -68,6 +70,7 @@ export default async function RootLayout({
             <ThemeToggle currentTheme={theme} />
           </ThemeSetter>
         </div>
+        <Toaster />
       </body>
     </html>
   );
