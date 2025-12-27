@@ -14,6 +14,13 @@ import CreateMeetingButton from '@/components/create-meeting/create-meeting-butt
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 import { cn } from '@/lib';
 import type { GetMeeting } from '@/types';
 
@@ -46,6 +53,17 @@ export function LandingContent({
   };
 
   const hasUserData = joinedMeetings.length > 0 || createdMeetings.length > 0;
+
+  const chunkMeetings = (meetings: GetMeeting[]) => {
+    const chunks = [];
+    for (let i = 0; i < meetings.length; i += 6) {
+      chunks.push(meetings.slice(i, i + 6));
+    }
+    return chunks;
+  };
+
+  const createdChunks = chunkMeetings(createdMeetings.toReversed());
+  const joinedChunks = chunkMeetings(joinedMeetings.toReversed());
 
   return (
     <>
@@ -134,16 +152,30 @@ export function LandingContent({
                     <h3 className="text-muted-foreground mb-4 text-sm font-medium tracking-wide uppercase">
                       Meetings You Created
                     </h3>
-                    <div className="space-y-3">
-                      {createdMeetings.map((meeting) => (
-                        <MeetingCard
-                          key={meeting.publicId}
-                          meeting={meeting}
-                          href={`/manage/${privateIds[meeting.publicId]}`}
-                          isOwner
-                        />
-                      ))}
-                    </div>
+                    <Carousel className="w-full">
+                      <CarouselContent>
+                        {createdChunks.map((chunk, chunkIndex) => (
+                          <CarouselItem key={`created-chunk-${chunk[0]?.publicId ?? chunkIndex}`}>
+                            <div className="space-y-3">
+                              {chunk.map((meeting) => (
+                                <MeetingCard
+                                  key={meeting.publicId}
+                                  meeting={meeting}
+                                  href={`/manage/${privateIds[meeting.publicId]}`}
+                                  isOwner
+                                />
+                              ))}
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      {createdChunks.length > 1 && (
+                        <div className="mt-4 flex justify-center gap-2">
+                          <CarouselPrevious className="static translate-y-0" />
+                          <CarouselNext className="static translate-y-0" />
+                        </div>
+                      )}
+                    </Carousel>
                   </motion.div>
                 )}
 
@@ -153,20 +185,34 @@ export function LandingContent({
                     <h3 className="text-muted-foreground mb-4 text-sm font-medium tracking-wide uppercase">
                       Meetings You Joined
                     </h3>
-                    <div className="space-y-3">
-                      {joinedMeetings.map((meeting) => (
-                        <MeetingCard
-                          key={meeting.publicId}
-                          meeting={meeting}
-                          href={`/meeting/${meeting.publicId}`}
-                          availabilityLink={
-                            availabilities[meeting.publicId]
-                              ? `/meeting/${meeting.publicId}/availability/${availabilities[meeting.publicId]}`
-                              : undefined
-                          }
-                        />
-                      ))}
-                    </div>
+                    <Carousel className="w-full">
+                      <CarouselContent>
+                        {joinedChunks.map((chunk, chunkIndex) => (
+                          <CarouselItem key={`joined-chunk-${chunk[0]?.publicId ?? chunkIndex}`}>
+                            <div className="space-y-3">
+                              {chunk.map((meeting) => (
+                                <MeetingCard
+                                  key={meeting.publicId}
+                                  meeting={meeting}
+                                  href={`/meeting/${meeting.publicId}`}
+                                  availabilityLink={
+                                    availabilities[meeting.publicId]
+                                      ? `/meeting/${meeting.publicId}/availability/${availabilities[meeting.publicId]}`
+                                      : undefined
+                                  }
+                                />
+                              ))}
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      {joinedChunks.length > 1 && (
+                        <div className="mt-4 flex justify-center gap-2">
+                          <CarouselPrevious className="static translate-y-0" />
+                          <CarouselNext className="static translate-y-0" />
+                        </div>
+                      )}
+                    </Carousel>
                   </motion.div>
                 )}
               </div>
