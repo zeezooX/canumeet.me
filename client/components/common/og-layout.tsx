@@ -32,6 +32,7 @@ export function OgLayout({ title, subtitle }: Readonly<OgLayoutProps>) {
           borderRadius: '50%',
           background: 'rgba(255, 153, 43, 0.16)',
           display: 'flex',
+          filter: 'blur(30px)',
         }}
       />
       <div
@@ -44,8 +45,11 @@ export function OgLayout({ title, subtitle }: Readonly<OgLayoutProps>) {
           borderRadius: '50%',
           background: 'rgba(114, 1, 217, 0.10)',
           display: 'flex',
+          filter: 'blur(30px)',
         }}
       />
+
+      {/* Decorative artifacts */}
       <div
         style={{
           position: 'absolute',
@@ -58,8 +62,6 @@ export function OgLayout({ title, subtitle }: Readonly<OgLayoutProps>) {
           display: 'flex',
         }}
       />
-
-      {/* Decorative artifacts */}
       <div
         style={{
           position: 'absolute',
