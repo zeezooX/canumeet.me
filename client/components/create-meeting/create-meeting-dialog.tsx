@@ -10,6 +10,7 @@ import {
   Bell,
   CalendarClock,
   CalendarIcon,
+  CalendarX2,
   Clock,
   Loader2,
   MessageSquare,
@@ -254,14 +255,17 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
               </Field>
 
               <Field>
-                <FieldLabel htmlFor="availabilityDeadline">Response Deadline</FieldLabel>
+                <FieldLabel htmlFor="availabilityDeadline">
+                  <CalendarX2 className="size-4" />
+                  Response Deadline
+                </FieldLabel>
                 <FieldContent>
                   <DatePicker
                     id="availabilityDeadline"
                     value={availabilityDeadline}
                     onChange={(date) => form.setValue('availabilityDeadline', date)}
                     placeholder="No deadline"
-                    buttonClassName="sm:w-[200px]"
+                    timePicker
                   />
                   <FieldError errors={[form.formState.errors.availabilityDeadline]} />
                   <FieldDescription>
@@ -273,32 +277,16 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
               <Field>
                 <FieldLabel htmlFor="meetingDate">
                   <CalendarClock className="size-4" />
-                  Meeting Date & Time
+                  Meeting Date
                 </FieldLabel>
                 <FieldContent>
-                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start">
-                    <DatePicker
-                      id="meetingDate"
-                      value={meetingDate}
-                      onChange={(date) => form.setValue('date', date)}
-                      placeholder="Select date"
-                    />
-                    <Input
-                      id="meetingTime"
-                      type="time"
-                      className="w-full sm:w-[160px]"
-                      hidden={!!meetingDate === false}
-                      onChange={(e) => {
-                        if (meetingDate && e.target.value) {
-                          const date = new Date(meetingDate);
-                          const [hours, minutes] = e.target.value.split(':');
-                          date.setHours(Number.parseInt(hours), Number.parseInt(minutes));
-                          form.setValue('date', date.toISOString());
-                        }
-                      }}
-                      value={meetingDate ? new Date(meetingDate).toTimeString().slice(0, 5) : ''}
-                    />
-                  </div>
+                  <DatePicker
+                    id="meetingDate"
+                    value={meetingDate}
+                    onChange={(date) => form.setValue('date', date)}
+                    placeholder="Select date"
+                    timePicker
+                  />
                   <FieldError errors={[form.formState.errors.date]} />
                   <FieldDescription>
                     Set a date if you wish to skip availability collection

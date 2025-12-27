@@ -3,7 +3,7 @@
 import { useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CalendarClock, CalendarIcon, Loader2 } from 'lucide-react';
+import { CalendarClock, CalendarIcon, CalendarX2, Loader2 } from 'lucide-react';
 import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -127,32 +127,16 @@ export default function EditMeetingDialog({
           <Field>
             <FieldLabel htmlFor="edit-date">
               <CalendarClock className="size-4" />
-              Meeting Date & Time
+              Meeting Date
             </FieldLabel>
             <FieldContent>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-start">
-                <DatePicker
-                  id="edit-date"
-                  value={meetingDate}
-                  onChange={(date) => form.setValue('date', date)}
-                  placeholder="Select date"
-                />
-                <Input
-                  id="edit-time"
-                  type="time"
-                  className="w-full sm:w-[160px]"
-                  hidden={!!meetingDate === false}
-                  onChange={(e) => {
-                    if (meetingDate && e.target.value) {
-                      const date = new Date(meetingDate);
-                      const [hours, minutes] = e.target.value.split(':');
-                      date.setHours(Number.parseInt(hours), Number.parseInt(minutes));
-                      form.setValue('date', date.toISOString());
-                    }
-                  }}
-                  value={meetingDate ? new Date(meetingDate).toTimeString().slice(0, 5) : ''}
-                />
-              </div>
+              <DatePicker
+                id="edit-date"
+                value={meetingDate}
+                onChange={(date) => form.setValue('date', date)}
+                placeholder="Select date"
+                timePicker
+              />
               <FieldError errors={[form.formState.errors.date]} />
             </FieldContent>
           </Field>
@@ -183,14 +167,17 @@ export default function EditMeetingDialog({
           </Field>
 
           <Field>
-            <FieldLabel htmlFor="edit-deadline">Response Deadline</FieldLabel>
+            <FieldLabel htmlFor="edit-deadline">
+              <CalendarX2 className="size-4" />
+              Response Deadline
+            </FieldLabel>
             <FieldContent>
               <DatePicker
                 id="edit-deadline"
                 value={availabilityDeadline}
                 onChange={(date) => form.setValue('availabilityDeadline', date)}
                 placeholder="No deadline"
-                buttonClassName="sm:w-[200px]"
+                timePicker
               />
               <FieldError errors={[form.formState.errors.availabilityDeadline]} />
             </FieldContent>

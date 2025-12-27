@@ -276,7 +276,7 @@ export function ManageMeetingContent({ responses }: Readonly<ManageMeetingConten
                       )}
                       {responses.date && (
                         <div className="flex justify-between">
-                          <dt className="text-muted-foreground">Date & Time</dt>
+                          <dt className="text-muted-foreground">Date</dt>
                           <dd>{format(parseISO(responses.date), 'PPp')}</dd>
                         </div>
                       )}
