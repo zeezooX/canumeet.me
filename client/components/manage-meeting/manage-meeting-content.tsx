@@ -163,9 +163,7 @@ export function ManageMeetingContent({ responses }: Readonly<ManageMeetingConten
             </div>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
               <div className="flex-1">
-                <p className="mb-1 text-sm font-medium">
-                  Use this admin link to manage the meeting
-                </p>
+                <p className="mb-1 text-sm font-medium">Use this link to manage the meeting</p>
                 <div className="bg-muted flex items-center gap-2 rounded-lg px-3 py-2">
                   <Link className="text-muted-foreground size-4 shrink-0" />
                   <code className="flex-1 truncate text-sm">{adminUrl}</code>

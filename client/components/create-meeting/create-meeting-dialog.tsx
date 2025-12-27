@@ -216,6 +216,7 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
                         setValueAs: (value) => (value ? Number.parseInt(value, 10) : undefined),
                       })}
                       aria-invalid={!!form.formState.errors.durationMins}
+                      placeholder="e.g., 30"
                     />
                     <span className="text-muted-foreground text-sm">minutes</span>
                   </div>
@@ -286,6 +287,7 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
                       id="meetingTime"
                       type="time"
                       className="w-full sm:w-[160px]"
+                      hidden={!!meetingDate === false}
                       onChange={(e) => {
                         if (meetingDate && e.target.value) {
                           const date = new Date(meetingDate);
@@ -298,7 +300,9 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
                     />
                   </div>
                   <FieldError errors={[form.formState.errors.date]} />
-                  <FieldDescription>If you wish to skip availability collection</FieldDescription>
+                  <FieldDescription>
+                    Set a date if you wish to skip availability collection
+                  </FieldDescription>
                 </FieldContent>
               </Field>
             </motion.div>

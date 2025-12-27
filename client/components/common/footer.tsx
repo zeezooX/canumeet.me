@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { Home } from 'lucide-react';
+
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -10,11 +12,24 @@ export function Footer() {
           © {currentYear} CanUMeetMe. All rights reserved.
         </p>
 
+        <div className="text-muted-foreground flex items-center gap-2 text-sm">
+          Made with <span className="animate-pulse">❤️</span> by{' '}
+          <a
+            href="https://github.com/zeezooX"
+            className="hover:text-foreground underline transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ziyad Eslam
+          </a>
+        </div>
+
         <div className="flex items-center gap-4">
           <Link
             href="/"
             className="text-muted-foreground hover:text-foreground text-sm transition-colors"
           >
+            <Home className="mr-1 inline size-4" />
             Home
           </Link>
         </div>

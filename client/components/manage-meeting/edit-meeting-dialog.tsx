@@ -3,7 +3,7 @@
 import { useTransition } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CalendarIcon, Loader2 } from 'lucide-react';
+import { CalendarClock, CalendarIcon, Loader2 } from 'lucide-react';
 import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -118,6 +118,7 @@ export default function EditMeetingDialog({
                   setValueAs: (value) => (value ? Number.parseInt(value, 10) : undefined),
                 })}
                 aria-invalid={!!form.formState.errors.durationMins}
+                placeholder="e.g., 30"
               />
               <FieldError errors={[form.formState.errors.durationMins]} />
             </FieldContent>
@@ -125,7 +126,7 @@ export default function EditMeetingDialog({
 
           <Field>
             <FieldLabel htmlFor="edit-date">
-              <CalendarIcon className="size-4" />
+              <CalendarClock className="size-4" />
               Meeting Date & Time
             </FieldLabel>
             <FieldContent>
@@ -140,6 +141,7 @@ export default function EditMeetingDialog({
                   id="edit-time"
                   type="time"
                   className="w-full sm:w-[160px]"
+                  hidden={!!meetingDate === false}
                   onChange={(e) => {
                     if (meetingDate && e.target.value) {
                       const date = new Date(meetingDate);
