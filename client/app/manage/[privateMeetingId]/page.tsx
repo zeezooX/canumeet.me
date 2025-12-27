@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
+import { ManageMeetingContent } from '@/components/manage-meeting/manage-meeting-content';
 import { getResponses } from '@/queries';
 
 export interface Props {
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const responses = await getResponses(privateMeetingId);
 
     const title = `Manage Your Meeting - CanUMeetMe`;
-    const description = `Manage your meeting on CanUMeetMe. You have ${responses.comments.length} comments and ${responses.excuses.length} excuses.`;
+    const description = `Manage your meeting on CanUMeetMe. You have ${responses.availabilities.length} responses and ${responses.comments.length} comments.`;
 
     return {
       title,
@@ -45,27 +46,5 @@ export default async function ManageMeetingPage({ params }: Readonly<Props>) {
     return redirect('/?removeFromPrivateMeetingIds=' + encodeURIComponent(privateMeetingId));
   }
 
-  return (
-    <div className="flex min-h-dvh flex-col items-center justify-center text-center">
-      <h1 className="mt-6 text-3xl font-semibold">Managing Meeting</h1>
-      <div className="mt-6 w-full max-w-2xl">
-        <dl className="divide-y rounded-md bg-gray-500 shadow-sm">
-          {Object.entries(responses).map(([key, val]) => {
-            const display =
-              val === null
-                ? 'null'
-                : typeof val === 'object'
-                  ? JSON.stringify(val, null, 2)
-                  : String(val);
-            return (
-              <div key={key} className="flex justify-between px-4 py-2">
-                <dt className="text-left font-semibold">{key}</dt>
-                <dd className="text-left">{display}</dd>
-              </div>
-            );
-          })}
-        </dl>
-      </div>
-    </div>
-  );
+  return <ManageMeetingContent responses={responses} />;
 }
