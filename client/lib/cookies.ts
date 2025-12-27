@@ -90,7 +90,8 @@ export function addToList<T = unknown>(
         // Ignore parsing errors and start with an empty list
       }
   }
-  if (!list.includes(value)) list.push(value);
+  list = list.filter((item) => item !== value);
+  list.push(value);
   cookieStore.set(key, JSON.stringify(list), {
     httpOnly: true,
     secure: true,

@@ -50,16 +50,16 @@ export interface CreateMeeting {
 }
 
 export interface UpdateMeeting {
-  availabilityEnabled?: boolean;
-  availabilityDeadline?: string;
-  commentsEnabled?: boolean;
-  updatesEnabled?: boolean;
-  excusesEnabled?: boolean;
-  name?: string;
-  description?: string;
+  availabilityEnabled?: boolean | null;
+  availabilityDeadline?: string | null;
+  commentsEnabled?: boolean | null;
+  updatesEnabled?: boolean | null;
+  excusesEnabled?: boolean | null;
+  name?: string | null;
+  description?: string | null;
   owner?: string;
-  date?: string;
-  durationMins?: number;
-  availabilityStart?: string;
-  availabilityEnd?: string;
+  date?: string | null;
+  durationMins?: number | null;
+  availabilityStart?: string | null;
+  availabilityEnd?: string | null;
 }
