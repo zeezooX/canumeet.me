@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 
 const title = 'CanUMeetMe - Schedule Meetings Effortlessly';
 const description =
-  'Online collaborative tool that facilitates meeting scheduling, without any login or registration hassles.';
+  'Organize meetings without back-and-forth. CanUMeetMe lets you create meetings, share availability, and find the best time—no registration required.';
 
 export const metadata: Metadata = {
   title,
