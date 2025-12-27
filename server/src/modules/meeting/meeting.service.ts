@@ -22,6 +22,8 @@ export class MeetingService {
       },
     });
 
+    meetings.sort((a, b) => publicId.indexOf(a.publicId) - publicId.indexOf(b.publicId));
+
     return meetings.map((meeting) => {
       delete meeting.privateId;
       return meeting;

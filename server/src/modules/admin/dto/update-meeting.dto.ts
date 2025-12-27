@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsDateString, IsInt, IsOptional, IsPositive, IsString } from 'class-validator';
+import { IsBefore } from 'src/common/is-before.decorator';
 
 /**
  * Data transfer object for modifying a meeting
@@ -29,6 +30,7 @@ export class UpdateMeetingDto {
   })
   @IsDateString()
   @IsOptional()
+  @IsBefore('availabilityStart')
   availabilityDeadline?: string;
 
   /**
@@ -147,6 +149,7 @@ export class UpdateMeetingDto {
   })
   @IsDateString()
   @IsOptional()
+  @IsBefore('availabilityEnd')
   availabilityStart?: string;
 
   /**
