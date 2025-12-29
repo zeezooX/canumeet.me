@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { getMeeting } from '@/queries';
+import { ViewMeetingContent } from '@/components/view-meeting/view-meeting-content';
+import { getMeeting, getUserAvailabilityIds } from '@/queries';
 
 export interface Props {
   params: Promise<{
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title,
         description,
-        url: `https://canumeetme.com/m/${meetingId}`,
+        url: `https://canumeetme.com/meeting/${meetingId}`,
       },
       twitter: {
         title,
@@ -46,27 +47,20 @@ export default async function ViewMeetingPage({ params }: Readonly<Props>) {
     return redirect('/?removeFromMeetingIds=' + encodeURIComponent(meetingId));
   }
 
-  return (
-    <div className="flex min-h-dvh flex-col items-center justify-center text-center">
-      <h1 className="mt-6 text-3xl font-semibold">Viewing Meeting</h1>
-      <div className="mt-6 w-full max-w-2xl">
-        <dl className="divide-y rounded-md bg-gray-500 shadow-sm">
-          {Object.entries(meeting).map(([key, val]) => {
-            const display =
-              val === null
-                ? 'null'
-                : typeof val === 'object'
-                  ? JSON.stringify(val, null, 2)
-                  : String(val);
-            return (
-              <div key={key} className="flex justify-between px-4 py-2">
-                <dt className="text-left font-semibold">{key}</dt>
-                <dd className="text-left">{display}</dd>
-              </div>
-            );
-          })}
-        </dl>
-      </div>
-    </div>
-  );
+  if (meeting.availabilityDeadline && new Date(meeting.availabilityDeadline) < new Date()) {
+    meeting.availabilityEnabled = false;
+  }
+
+  let availabilityId;
+  try {
+    const availabilityIds = await getUserAvailabilityIds();
+    for (const id of availabilityIds) {
+      const [meetingId, availId] = id.split('|');
+      if (meetingId === meeting.publicId) availabilityId = availId;
+    }
+  } catch {
+    // Ignore errors
+  }
+
+  return <ViewMeetingContent meeting={meeting} availabilityId={availabilityId} />;
 }
