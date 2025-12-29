@@ -22,7 +22,7 @@ export const viewport: Viewport = {
   userScalable: true,
 };
 
-const title = 'CanUMeetMe - Schedule Meetings Effortlessly';
+const title = 'CanUMeetMe: Schedule Meetings Effortlessly';
 const description =
   'Organize meetings without back-and-forth. CanUMeetMe lets you create meetings, share availability, and find the best time—no registration required.';
 
