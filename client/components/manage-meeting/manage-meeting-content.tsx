@@ -34,7 +34,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useUserName } from '@/hooks/use-local-storage';
+import { useAutoRefresh, useUserName } from '@/hooks';
 import { getSoftCandidates, getStrictCandidates } from '@/lib/scheduler';
 import { cn } from '@/lib/utils';
 import type { GetResponses } from '@/types';
@@ -46,6 +46,8 @@ interface ManageMeetingContentProps {
 }
 
 export function ManageMeetingContent({ responses }: Readonly<ManageMeetingContentProps>) {
+  useAutoRefresh();
+
   const router = useRouter();
   const { userName, setUserName } = useUserName();
   const [activeTab, setActiveTab] = useState('overview');

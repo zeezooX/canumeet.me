@@ -39,7 +39,7 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useUserName } from '@/hooks/use-local-storage';
+import { useUserName } from '@/hooks';
 import { cn } from '@/lib';
 import { CreateMeetingFormValues, createMeetingSchema } from '@/schemas';
 

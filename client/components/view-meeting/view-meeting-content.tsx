@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useUserName } from '@/hooks/use-local-storage';
+import { useAutoRefresh, useUserName } from '@/hooks';
 import type { GetMeeting } from '@/types';
 
 import { AvailabilityDialog, ExcuseDialog } from '.';
@@ -24,6 +24,8 @@ interface ViewMeetingContentProps {
 }
 
 export function ViewMeetingContent({ meeting, availabilityId }: Readonly<ViewMeetingContentProps>) {
+  useAutoRefresh();
+
   const { userName, setUserName } = useUserName();
   const [activeTab, setActiveTab] = useState('details');
   const [availabilityDialogOpen, setAvailabilityDialogOpen] = useState(false);
