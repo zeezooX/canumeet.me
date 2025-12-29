@@ -7,7 +7,7 @@ import { Toaster } from 'sonner';
 
 import { Footer } from '@/components/common/footer';
 import { Navbar } from '@/components/common/navbar';
-import ThemeSetter, { ThemeToggle } from '@/components/common/theme-setter';
+import ThemeToggle from '@/components/common/theme-toggle';
 import { cn } from '@/lib';
 import { getTheme } from '@/queries';
 
@@ -66,9 +66,7 @@ export default async function RootLayout({
           <Footer />
         </div>
         <div className="fixed right-4 bottom-4 z-50">
-          <ThemeSetter>
-            <ThemeToggle currentTheme={theme} />
-          </ThemeSetter>
+          <ThemeToggle currentTheme={theme} />
         </div>
         <Toaster />
       </body>
