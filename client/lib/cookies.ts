@@ -66,7 +66,7 @@ export function deleteValue(key: string, cookieStore: CookieStore): void {
 
 /**
  * Adds a value to a list stored in a cookie. If the list does not exist, it is created.
- * The value is only added if it is not already present in the list.
+ * If the value already exists, it is moved to the end of the list.
  * @param key - The key of the cookie.
  * @param value - The value to be added to the list.
  * @param cookieStore - The cookie store where the list is stored.

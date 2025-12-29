@@ -1,21 +1,24 @@
 'use server';
 
 import { updateTag } from 'next/cache';
+import { cookies } from 'next/headers';
 
-import { api } from '@/lib';
-import type { CreateAvailability, GetAvailability } from '@/types';
+import { addToList, api } from '@/lib';
+import type { CreateAvailability, GetAvailability, GetIds } from '@/types';
 
 /**
  * Create availability for a meeting
  * @param meetingPublicId Public ID of the meeting
  * @param data Availability data
+ * @returns Created availability IDs
  */
 export async function createAvailability(
   meetingPublicId: string,
   data: CreateAvailability
-): Promise<GetAvailability> {
+): Promise<GetIds> {
   const response = await api.post<GetAvailability>(`/meeting/${meetingPublicId}/available`, data);
   updateTag(`admin-${meetingPublicId}`);
+  addToList('availabilityIds', `${meetingPublicId}|${response.data.privateId}`, await cookies());
   return response.data;
 }
 
@@ -29,12 +32,9 @@ export async function modifyAvailability(
   meetingPublicId: string,
   privateId: string,
   data: CreateAvailability
-): Promise<GetAvailability> {
-  const response = await api.post<GetAvailability>(
-    `/meeting/${meetingPublicId}/available/${privateId}`,
-    data
-  );
+): Promise<void> {
+  await api.post<GetAvailability>(`/meeting/${meetingPublicId}/available/${privateId}`, data);
   updateTag(`availability-${privateId}`);
   updateTag(`admin-${meetingPublicId}`);
-  return response.data;
+  addToList('availabilityIds', `${meetingPublicId}|${privateId}`, await cookies());
 }
