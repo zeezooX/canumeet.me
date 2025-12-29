@@ -19,17 +19,17 @@ export interface GetMeeting {
   name?: string;
   owner: string;
   description?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  date?: Date;
+  createdAt: string;
+  updatedAt: string;
+  date?: string;
   durationMins?: number;
   availabilityEnabled: boolean;
-  availabilityDeadline?: Date;
+  availabilityDeadline?: string;
   commentsEnabled: boolean;
   updatesEnabled: boolean;
   excusesEnabled: boolean;
-  availabilityStart?: Date;
-  availabilityEnd?: Date;
+  availabilityStart?: string;
+  availabilityEnd?: string;
   userId?: number;
   comments?: GetComment[];
 }
