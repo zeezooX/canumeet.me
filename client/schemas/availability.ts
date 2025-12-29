@@ -10,8 +10,8 @@ export const createRangeSchema = z
   });
 
 export const createAvailabilitySchema = z.object({
-  owner: z.string().min(1, { message: 'Name is required' }),
-  message: z.string().optional(),
+  owner: z.string().trim().min(1, { message: 'Name is required' }),
+  message: z.string().trim().optional(),
   ranges: z.array(createRangeSchema),
 });
 

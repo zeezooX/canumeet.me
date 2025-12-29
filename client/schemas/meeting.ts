@@ -6,9 +6,9 @@ const meeting = {
   commentsEnabled: z.boolean().optional(),
   updatesEnabled: z.boolean().optional(),
   excusesEnabled: z.boolean().optional(),
-  name: z.string().optional(),
-  description: z.string().optional(),
-  owner: z.string().nonempty('Name is required'),
+  name: z.string().trim().optional(),
+  description: z.string().trim().optional(),
+  owner: z.string().trim().nonempty('Name is required'),
   date: z.iso.datetime().optional(),
   durationMins: z
     .int('Duration must be an integer')
