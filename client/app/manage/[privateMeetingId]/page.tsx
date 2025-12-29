@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { ManageMeetingContent } from '@/components/manage-meeting/manage-meeting-content';
+import { ManageMeetingContent } from '@/components/manage-meeting';
 import { getResponses } from '@/queries';
 
 export interface Props {

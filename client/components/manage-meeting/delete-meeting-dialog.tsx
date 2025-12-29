@@ -1,3 +1,5 @@
+'use client';
+
 import { useTransition } from 'react';
 
 import { Loader2 } from 'lucide-react';
@@ -22,7 +24,7 @@ interface DeleteMeetingDialogProps {
   onSuccess: () => void;
 }
 
-export default function DeleteMeetingDialog({
+export function DeleteMeetingDialog({
   open,
   onOpenChange,
   privateId,

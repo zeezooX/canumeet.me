@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import * as motion from 'motion/react-client';
 
-import CreateMeetingButton from '@/components/create-meeting/create-meeting-button';
+import { CreateMeetingButton } from '@/components/create-meeting';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,7 +24,7 @@ import {
 import { cn } from '@/lib';
 import type { GetMeeting } from '@/types';
 
-import MeetingCard from './meeting-card';
+import { MeetingCard } from '.';
 
 interface LandingContentProps {
   joinedMeetings: GetMeeting[];

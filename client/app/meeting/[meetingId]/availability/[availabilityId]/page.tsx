@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { EditAvailabilityContent } from '@/components/edit-availability/edit-availability-content';
+import { EditAvailabilityContent } from '@/components/edit-availability';
 import { getAvailability, getMeeting } from '@/queries';
 
 export interface Props {

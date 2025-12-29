@@ -12,7 +12,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { modifyAvailability } from '@/actions';
-import AvailabilityCalendar from '@/components/common/availability-calendar';
+import { AvailabilityCalendar } from '@/components/common';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';

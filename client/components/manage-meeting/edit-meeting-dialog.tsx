@@ -8,7 +8,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { updateMeeting } from '@/actions';
-import { DatePicker } from '@/components/common/date-picker';
+import { DatePicker } from '@/components/common';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -30,7 +30,7 @@ interface EditMeetingDialogProps {
   responses: GetResponses;
 }
 
-export default function EditMeetingDialog({
+export function EditMeetingDialog({
   open,
   onOpenChange,
   responses,

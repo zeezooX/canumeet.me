@@ -8,7 +8,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { createAvailability } from '@/actions';
-import AvailabilityCalendar from '@/components/common/availability-calendar';
+import { AvailabilityCalendar } from '@/components/common';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -32,7 +32,7 @@ interface AvailabilityDialogProps {
   setUserName: (name: string) => void;
 }
 
-export default function AvailabilityDialog({
+export function AvailabilityDialog({
   open,
   onOpenChange,
   meeting,

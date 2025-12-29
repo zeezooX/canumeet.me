@@ -10,7 +10,7 @@ import { motion } from 'motion/react';
 
 import logoFull from '@/assets/logo-full.svg';
 import logoIcon from '@/assets/logo-icon.svg';
-import CreateMeetingButton from '@/components/create-meeting/create-meeting-button';
+import { CreateMeetingButton } from '@/components/create-meeting';
 import { Button } from '@/components/ui/button';
 
 export function Navbar() {

@@ -11,7 +11,7 @@ interface FeatureToggleProps {
   onChange: (checked: boolean) => void;
 }
 
-export default function FeatureToggle({
+export function FeatureToggle({
   id,
   label,
   description,

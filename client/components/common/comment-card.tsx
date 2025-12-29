@@ -25,7 +25,7 @@ interface CommentCardProps {
   setUserName: (name: string) => void;
 }
 
-export default function CommentCard({
+export function CommentCard({
   comment,
   replies,
   meetingId,

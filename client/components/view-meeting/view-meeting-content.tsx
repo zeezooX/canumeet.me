@@ -8,8 +8,7 @@ import { format, formatDistanceToNow, formatDuration, intervalToDuration } from 
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, Bell, Calendar, Clock, Edit, MessageSquare, User } from 'lucide-react';
 
-import CommentCard from '@/components/common/comment-card';
-import CommentInput from '@/components/common/comment-input';
+import { CommentCard, CommentInput } from '@/components/common';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,8 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useUserName } from '@/hooks/use-local-storage';
 import type { GetMeeting } from '@/types';
 
-import AvailabilityDialog from './availability-dialog';
-import ExcuseDialog from './excuse-dialog';
+import { AvailabilityDialog, ExcuseDialog } from '.';
 
 interface ViewMeetingContentProps {
   meeting: GetMeeting;

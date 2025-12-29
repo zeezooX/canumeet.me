@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 
-import { CreateMeetingDialog } from '@/components/create-meeting/create-meeting-dialog';
 import { Button } from '@/components/ui/button';
+
+import { CreateMeetingDialog } from '.';
 
 interface CreateMeetingButtonProps {
   children: React.ReactNode;
@@ -11,7 +12,7 @@ interface CreateMeetingButtonProps {
   className?: string;
 }
 
-export default function CreateMeetingButton({
+export function CreateMeetingButton({
   children,
   size,
   className,

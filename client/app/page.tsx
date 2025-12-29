@@ -1,4 +1,4 @@
-import { LandingContent } from '@/components/landing/landing-content';
+import { LandingContent } from '@/components/landing';
 import {
   getMeetings,
   getUserAvailabilityIds,

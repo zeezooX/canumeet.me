@@ -62,7 +62,7 @@ interface AvailabilityCalendarProps {
   className?: string;
 }
 
-export default function AvailabilityCalendar({
+export function AvailabilityCalendar({
   ranges,
   onChange,
   minDate,

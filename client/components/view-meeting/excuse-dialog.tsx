@@ -31,7 +31,7 @@ interface ExcuseDialogProps {
   setUserName: (name: string) => void;
 }
 
-export default function ExcuseDialog({
+export function ExcuseDialog({
   open,
   onOpenChange,
   meetingId,

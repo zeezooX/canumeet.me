@@ -17,7 +17,7 @@ interface UpdateInputProps {
   owner: string;
 }
 
-export default function UpdateInput({ privateId, owner }: Readonly<UpdateInputProps>) {
+export function UpdateInput({ privateId, owner }: Readonly<UpdateInputProps>) {
   const [isPending, startTransition] = useTransition();
   const form = useForm<CreateResponseFormValues>({
     resolver: zodResolver(createResponseSchema),

@@ -5,9 +5,7 @@ import { Inter } from 'next/font/google';
 
 import { Toaster } from 'sonner';
 
-import { Footer } from '@/components/common/footer';
-import { Navbar } from '@/components/common/navbar';
-import ThemeToggle from '@/components/common/theme-toggle';
+import { Footer, Navbar, ThemeToggle } from '@/components/common';
 import { cn } from '@/lib';
 import { getTheme } from '@/queries';
 

@@ -20,7 +20,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { createMeeting } from '@/actions';
-import { DatePicker } from '@/components/common/date-picker';
+import { DatePicker } from '@/components/common';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -43,7 +43,7 @@ import { useUserName } from '@/hooks/use-local-storage';
 import { cn } from '@/lib';
 import { CreateMeetingFormValues, createMeetingSchema } from '@/schemas';
 
-import FeatureToggle from './feature-toggle';
+import { FeatureToggle } from '.';
 
 interface CreateMeetingDialogProps {
   open: boolean;

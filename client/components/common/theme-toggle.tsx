@@ -11,7 +11,7 @@ interface ThemeSetterProps {
   currentTheme?: 'light' | 'dark';
 }
 
-export default function ThemeToggle({ currentTheme }: Readonly<ThemeSetterProps>) {
+export function ThemeToggle({ currentTheme }: Readonly<ThemeSetterProps>) {
   const [isPending, startTransition] = useTransition();
 
   const startViewTransition = (callback: () => void) => {

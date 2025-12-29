@@ -14,7 +14,7 @@ interface MeetingCardProps {
   availabilityLink?: string;
 }
 
-export default function MeetingCard({
+export function MeetingCard({
   meeting,
   href,
   isOwner,

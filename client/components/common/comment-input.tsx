@@ -18,11 +18,7 @@ interface CommentInputProps {
   setUserName: (name: string) => void;
 }
 
-export default function CommentInput({
-  meetingId,
-  userName,
-  setUserName,
-}: Readonly<CommentInputProps>) {
+export function CommentInput({ meetingId, userName, setUserName }: Readonly<CommentInputProps>) {
   const [isPending, startTransition] = useTransition();
   const form = useForm<CreateResponseFormValues>({
     resolver: zodResolver(createResponseSchema),

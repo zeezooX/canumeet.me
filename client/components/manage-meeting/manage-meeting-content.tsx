@@ -29,8 +29,7 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
-import CommentCard from '@/components/common/comment-card';
-import CommentInput from '@/components/common/comment-input';
+import { CommentCard, CommentInput } from '@/components/common';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,10 +39,7 @@ import { getSoftCandidates, getStrictCandidates } from '@/lib/scheduler';
 import { cn } from '@/lib/utils';
 import type { GetResponses } from '@/types';
 
-import AvailabilityCard from './availability-card';
-import DeleteMeetingDialog from './delete-meeting-dialog';
-import EditMeetingDialog from './edit-meeting-dialog';
-import UpdateInput from './update-input';
+import { AvailabilityCard, DeleteMeetingDialog, EditMeetingDialog, UpdateInput } from '.';
 
 interface ManageMeetingContentProps {
   responses: GetResponses;

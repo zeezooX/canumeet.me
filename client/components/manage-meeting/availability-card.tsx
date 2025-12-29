@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 import { format, parseISO } from 'date-fns';
@@ -12,7 +14,7 @@ interface AvailabilityCardProps {
   availability: GetAvailability;
 }
 
-export default function AvailabilityCard({ availability }: Readonly<AvailabilityCardProps>) {
+export function AvailabilityCard({ availability }: Readonly<AvailabilityCardProps>) {
   const [expanded, setExpanded] = useState(false);
 
   return (
