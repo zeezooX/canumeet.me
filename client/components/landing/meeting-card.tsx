@@ -59,7 +59,6 @@ export default function MeetingCard({
             variant="ghost"
             size="xs"
             asChild
-            onClick={(e) => e.stopPropagation()}
             className="text-muted-foreground hover:text-foreground"
           >
             <Link href={availabilityLink}>

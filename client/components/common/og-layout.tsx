@@ -159,8 +159,7 @@ export function OgLayout({ title, subtitle }: Readonly<OgLayoutProps>) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            maxWidth: '900px',
-            padding: '0 40px',
+            maxWidth: '1600px',
           }}
         >
           <div
@@ -169,10 +168,15 @@ export function OgLayout({ title, subtitle }: Readonly<OgLayoutProps>) {
               fontWeight: '2400',
               color: '#000000',
               textAlign: 'center',
-              lineHeight: '1',
+              lineHeight: '1.1',
               marginBottom: subtitle ? '18px' : '0',
-              display: 'flex',
+              display: '-webkit-box',
               letterSpacing: '-0.02em',
+              padding: '0 220px',
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: 2,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}
           >
             {title}
@@ -184,8 +188,12 @@ export function OgLayout({ title, subtitle }: Readonly<OgLayoutProps>) {
                 fontWeight: '1200',
                 color: 'rgba(0, 0, 0, 0.65)',
                 textAlign: 'center',
-                display: 'flex',
+                display: '-webkit-box',
                 lineHeight: '1.4',
+                WebkitBoxOrient: 'vertical',
+                WebkitLineClamp: 1,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
             >
               {subtitle}

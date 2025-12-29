@@ -4,7 +4,13 @@ import { useMemo, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { format, formatDistanceToNow, parseISO } from 'date-fns';
+import {
+  format,
+  formatDistanceToNow,
+  formatDuration,
+  intervalToDuration,
+  parseISO,
+} from 'date-fns';
 import {
   AlertCircle,
   Bell,
@@ -112,7 +118,18 @@ export function ManageMeetingContent({ responses }: Readonly<ManageMeetingConten
           {responses.durationMins && (
             <span className="flex items-center gap-1">
               <Clock className="size-4" />
-              {responses.durationMins} min
+              {formatDuration(
+                intervalToDuration({
+                  start: 0,
+                  end: responses.durationMins * 60 * 1000,
+                }),
+                {
+                  format: ['hours', 'minutes'],
+                  zero: true,
+                }
+              )
+                .replaceAll('hour', 'hr')
+                .replaceAll('minute', 'min')}
             </span>
           )}
           <span className="flex items-center gap-1">
@@ -208,7 +225,7 @@ export function ManageMeetingContent({ responses }: Readonly<ManageMeetingConten
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="max-w-full items-center justify-start overflow-x-auto">
+        <TabsList className="max-w-full items-center justify-start overflow-x-auto overflow-y-hidden">
           <TabsTrigger value="overview">
             <Calendar className="size-4" />
             Overview
@@ -271,13 +288,23 @@ export function ManageMeetingContent({ responses }: Readonly<ManageMeetingConten
                       {responses.durationMins && (
                         <div className="flex justify-between">
                           <dt className="text-muted-foreground">Duration</dt>
-                          <dd>{responses.durationMins} minutes</dd>
+                          <dd>
+                            {formatDuration(
+                              intervalToDuration({
+                                start: 0,
+                                end: responses.durationMins * 60 * 1000,
+                              }),
+                              {
+                                format: ['hours', 'minutes'],
+                              }
+                            )}
+                          </dd>
                         </div>
                       )}
                       {responses.date && (
                         <div className="flex justify-between">
                           <dt className="text-muted-foreground">Date</dt>
-                          <dd>{format(parseISO(responses.date), 'PPp')}</dd>
+                          <dd>{format(parseISO(responses.date), 'EEE, MMM d, yyyy h:mm a')}</dd>
                         </div>
                       )}
                     </dl>
