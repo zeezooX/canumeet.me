@@ -383,13 +383,6 @@ export function ManageMeetingContent({ responses }: Readonly<ManageMeetingConten
                 {schedulerMode === 'strict'
                   ? 'Shows times when participants are fully available for the entire duration.'
                   : 'Shows times ranked by overall availability coverage.'}
-                <br />
-                When you&apos;ve decided on a time, set it in{' '}
-                <span className="inline-flex items-center gap-1">
-                  <Edit className="size-4" />
-                  Edit Meeting
-                </span>
-                {'.'}
               </p>
 
               {bestSlots.length === 0 ? (
@@ -398,7 +391,9 @@ export function ManageMeetingContent({ responses }: Readonly<ManageMeetingConten
                     <Trophy className="text-muted-foreground mx-auto mb-4 size-12 opacity-50" />
                     <h3 className="mb-1 font-medium">No optimal times found</h3>
                     <p className="text-muted-foreground text-sm">
-                      Collect more availability responses to find the best meeting times.
+                      {responses.durationMins
+                        ? 'Collect more availability responses to find the best meeting times.'
+                        : 'Set a meeting duration to find the best meeting times.'}
                     </p>
                   </CardContent>
                 </Card>
@@ -437,6 +432,14 @@ export function ManageMeetingContent({ responses }: Readonly<ManageMeetingConten
                       </CardContent>
                     </Card>
                   ))}
+                  <p className="text-muted-foreground mb-6 text-sm">
+                    When you&apos;ve decided on a time, set it in{' '}
+                    <span className="inline-flex items-center gap-1">
+                      <Edit className="size-4" />
+                      Edit Meeting
+                    </span>
+                    {'.'}
+                  </p>
                 </div>
               )}
             </TabsContent>

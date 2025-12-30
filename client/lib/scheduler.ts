@@ -90,6 +90,26 @@ function createMaxHeap(): Heap<CandidateSlot> {
 }
 
 /**
+ * Pushes a candidate slot into the heap if it has a valid score.
+ * @param heap - The heap to push the candidate slot into.
+ * @param start - The start time of the candidate slot.
+ * @param end - The end time of the candidate slot.
+ * @param scoreFunc - A function that calculates a score for a given coverage map.
+ * @param coverage - A map of user availability coverage.
+ */
+function pushHeap(
+  heap: Heap<CandidateSlot>,
+  start: number,
+  end: number,
+  scoreFunc: (coverage: Map<string, number>) => number | null,
+  coverage: Map<string, number>
+) {
+  const score = scoreFunc(coverage);
+  if (score === null) return;
+  heap.push({ start, end, score });
+}
+
+/**
  * Runs a sliding window algorithm to find candidate slots based on the provided scoring function.
  * @param availabilities - An array of user availabilities.
  * @param durationMinutes - The duration of the desired time slot in minutes.
@@ -109,30 +129,36 @@ function runWindow(
   const coverage = new Map<string, number>();
 
   for (const rightSeg of segments) {
-    windowDuration += rightSeg.end - rightSeg.start;
+    const rightSegDuration = rightSeg.end - rightSeg.start;
+    windowDuration += rightSegDuration;
+
     for (const user of rightSeg.users) {
-      coverage.set(user, (coverage.get(user) || 0) + (rightSeg.end - rightSeg.start));
+      coverage.set(user, (coverage.get(user) || 0) + rightSegDuration);
     }
 
-    while (windowDuration > durationMinutes) {
+    while (windowDuration > durationMinutes && left < segments.length) {
       const leftSeg = segments[left];
-      windowDuration -= leftSeg.end - leftSeg.start;
+      const leftSegDuration = leftSeg.end - leftSeg.start;
 
+      const canExtractSlot =
+        leftSegDuration >= durationMinutes && windowDuration - leftSegDuration < durationMinutes;
+
+      if (canExtractSlot) {
+        const slotCoverage = new Map(
+          Array.from(leftSeg.users).map((user) => [user, durationMinutes])
+        );
+        pushHeap(heap, leftSeg.start, leftSeg.start + durationMinutes, scoreFunc, slotCoverage);
+      }
+
+      windowDuration -= leftSegDuration;
       for (const user of leftSeg.users) {
-        coverage.set(user, coverage.get(user)! - (leftSeg.end - leftSeg.start));
+        coverage.set(user, coverage.get(user)! - leftSegDuration);
       }
       left++;
     }
 
     if (windowDuration === durationMinutes) {
-      const score = scoreFunc(coverage);
-      if (score !== null) {
-        heap.push({
-          start: segments[left].start,
-          end: rightSeg.end,
-          score,
-        });
-      }
+      pushHeap(heap, segments[left].start, rightSeg.end, scoreFunc, coverage);
     }
   }
 
