@@ -3,7 +3,6 @@
 import { useState, useTransition } from 'react';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';
@@ -29,7 +28,6 @@ export function EditAvailabilityContent({
   meeting,
   availability,
 }: Readonly<EditAvailabilityContentProps>) {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [editCopied, setEditCopied] = useState(false);
 
@@ -37,7 +35,12 @@ export function EditAvailabilityContent({
     defaultValues: {
       owner: availability.owner,
       message: availability.message || '',
-      ranges: availability.ranges,
+      ranges: availability.ranges.map((range) => {
+        return {
+          startTime: range.startTime,
+          endTime: range.endTime,
+        };
+      }),
     },
   });
 
@@ -55,7 +58,8 @@ export function EditAvailabilityContent({
     startTransition(async () => {
       try {
         await modifyAvailability(meeting.publicId, availability.privateId, data);
-        router.push(`/meeting/${meeting.publicId}`);
+        toast('Availability updated successfully!');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (error) {
         console.error('Failed to update availability:', error);
         toast.error('Failed to update availability. Please try again.');

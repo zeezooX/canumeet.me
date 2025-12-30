@@ -66,7 +66,7 @@ export default async function RootLayout({
         <div className="fixed right-4 bottom-4 z-50">
           <ThemeToggle currentTheme={theme} />
         </div>
-        <Toaster />
+        <Toaster position="top-center" theme={theme} richColors />
       </body>
     </html>
   );

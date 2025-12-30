@@ -58,6 +58,7 @@ export function ExcuseDialog({
     startTransition(async () => {
       try {
         await sendExcuse(meetingId, data);
+        toast('Excuse sent successfully!');
         onOpenChange(false);
         form.reset();
       } catch (error) {
