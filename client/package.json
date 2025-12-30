@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "next dev -p 4000",
     "build": "next build",
+    "postinstall": "npx prisma migrate deploy && npx prisma generate",
     "start": "next start -p 4000",
     "lint": "eslint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "seed": "tsx prisma/seed.ts"
   },
   "lint-staged": {
     "*.{js,ts,tsx,json,css,md}": [
@@ -20,16 +22,20 @@
   "dependencies": {
     "@base-ui/react": "^1.0.0",
     "@hookform/resolvers": "^5.2.2",
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "^7.2.0",
     "axios": "^1.13.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.2.3",
     "embla-carousel-react": "^8.6.0",
     "heap-js": "^2.7.1",
     "lucide-react": "^0.561.0",
     "motion": "^12.23.26",
     "next": "16.0.10",
     "next-themes": "^0.4.6",
+    "pg": "^8.16.3",
     "radix-ui": "^1.4.3",
     "react": "19.2.1",
     "react-day-picker": "^9.13.0",
@@ -45,6 +51,7 @@
     "@tailwindcss/postcss": "^4",
     "@trivago/prettier-plugin-sort-imports": "^6.0.0",
     "@types/node": "^20",
+    "@types/pg": "^8.16.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
@@ -52,7 +59,9 @@
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "prisma": "^7.2.0",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
