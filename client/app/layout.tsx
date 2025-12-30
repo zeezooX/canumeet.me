@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    url: 'https://canumeetme.com',
+    url: 'https://canumeet.me',
     siteName: 'CanUMeetMe',
   },
   twitter: {

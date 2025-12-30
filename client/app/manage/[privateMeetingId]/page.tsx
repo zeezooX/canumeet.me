@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title,
         description,
-        url: `https://canumeetme.com/manage/${privateMeetingId}`,
+        url: `https://canumeet.me/manage/${privateMeetingId}`,
       },
       twitter: {
         title,
