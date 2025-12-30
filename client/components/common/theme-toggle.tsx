@@ -41,8 +41,15 @@ export function ThemeToggle({ currentTheme }: Readonly<ThemeSetterProps>) {
       aria-label={`Switch to ${currentTheme === 'light' ? 'dark' : 'light'} mode`}
       disabled={isPending}
     >
-      <Sun className="size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-      <Moon className="absolute size-5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+      <Sun
+        className={`size-5 transition-all ${isPending ? 'scale-0 rotate-180' : 'scale-100 rotate-0 dark:scale-0 dark:-rotate-90'}`}
+      />
+      <Moon
+        className={`absolute size-5 transition-all ${isPending ? 'scale-0 -rotate-180' : 'scale-0 rotate-90 dark:scale-100 dark:rotate-0'}`}
+      />
+      {isPending && (
+        <div className="absolute size-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+      )}
     </Button>
   );
 }

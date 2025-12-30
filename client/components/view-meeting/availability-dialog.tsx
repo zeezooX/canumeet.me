@@ -71,6 +71,7 @@ export function AvailabilityDialog({
     startTransition(async () => {
       try {
         await createAvailability(meeting.publicId, data);
+        toast.success('Availability submitted successfully!');
         onOpenChange(false);
         setRanges([]);
       } catch (error) {
