@@ -42,6 +42,7 @@ export const metadata: Metadata = {
     description,
     card: 'summary_large_image',
   },
+  metadataBase: new URL('https://canumeet.me'),
 };
 
 export default async function RootLayout({

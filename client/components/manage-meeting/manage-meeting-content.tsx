@@ -564,7 +564,11 @@ export function ManageMeetingContent({ responses }: Readonly<ManageMeetingConten
         open={deleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
         privateId={responses.privateId}
-        onSuccess={() => router.push('/')}
+        onSuccess={() =>
+          router.push(
+            `/?removeFromPrivateMeetingIds=${responses.privateId}&removeFromMeetingIds=${responses.publicId}`
+          )
+        }
       />
     </div>
   );

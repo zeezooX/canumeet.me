@@ -1,4 +1,9 @@
 {
   "editor.formatOnSave": true,
-  "eslint.workingDirectories": [{ "mode": "auto" }]
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "chat.mcp.autostart": "onlyNew"
 }
