@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
 
 import { Footer, Navbar, ThemeToggle } from '@/components/common';
+import { CreateMeetingDialog, CreateMeetingProvider } from '@/components/create-meeting';
 import { cn } from '@/lib';
 import { getTheme } from '@/queries';
 
@@ -59,14 +60,17 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-dvh">
-        <div className="flex min-h-dvh flex-col">
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
-        <div className="fixed right-4 bottom-4 z-50">
-          <ThemeToggle currentTheme={theme} />
-        </div>
+        <CreateMeetingProvider>
+          <div className="flex min-h-dvh flex-col">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <div className="fixed right-4 bottom-4 z-50">
+            <ThemeToggle currentTheme={theme} />
+          </div>
+          <CreateMeetingDialog />
+        </CreateMeetingProvider>
         <Toaster position="top-center" theme={theme} richColors />
       </body>
     </html>

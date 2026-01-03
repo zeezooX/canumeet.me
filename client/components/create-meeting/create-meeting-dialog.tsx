@@ -43,14 +43,10 @@ import { useUserName } from '@/hooks';
 import { cn } from '@/lib';
 import { CreateMeetingFormValues, createMeetingSchema } from '@/schemas';
 
-import { FeatureToggle } from '.';
+import { FeatureToggle, useCreateMeetingDialog } from '.';
 
-interface CreateMeetingDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
-
-export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeetingDialogProps>) {
+export function CreateMeetingDialog() {
+  const { isOpen, closeDialog } = useCreateMeetingDialog();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { userName, setUserName } = useUserName();
@@ -92,7 +88,9 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
     startTransition(async () => {
       try {
         const result = await createMeeting(data);
-        onOpenChange(false);
+        closeDialog();
+        form.reset({ owner: data.owner });
+        setStep(1);
         router.push(`/manage/${result.privateId}`);
       } catch (error) {
         console.error('Failed to create meeting:', error);
@@ -121,7 +119,7 @@ export function CreateMeetingDialog({ open, onOpenChange }: Readonly<CreateMeeti
   const prevStep = () => setStep(step - 1);
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={closeDialog}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Create a New Meeting</DialogTitle>

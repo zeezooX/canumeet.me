@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-
 import { Button } from '@/components/ui/button';
 
-import { CreateMeetingDialog } from '.';
+import { useCreateMeetingDialog } from '.';
 
 interface CreateMeetingButtonProps {
   children: React.ReactNode;
@@ -17,15 +15,11 @@ export function CreateMeetingButton({
   size,
   className,
 }: Readonly<CreateMeetingButtonProps>) {
-  const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const { openDialog } = useCreateMeetingDialog();
 
   return (
-    <>
-      <Button size={size} className={className} onClick={() => setCreateDialogOpen(true)}>
-        {children}
-      </Button>
-
-      <CreateMeetingDialog open={createDialogOpen} onOpenChange={setCreateDialogOpen} />
-    </>
+    <Button size={size} className={className} onClick={openDialog}>
+      {children}
+    </Button>
   );
 }
