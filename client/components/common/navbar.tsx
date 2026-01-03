@@ -19,7 +19,7 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 80);
     };
     window.addEventListener('scroll', handleScroll);
     handleScroll();
@@ -38,9 +38,11 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center gap-2">
           {/* Mobile Logo */}
-          <div className={`relative ${isScrolled ? '' : '-ml-4'} block sm:hidden`}>
+          <div
+            className={`relative ${isScrolled && !mobileMenuOpen ? '' : '-ml-4'} block sm:hidden`}
+          >
             <AnimatePresence mode="wait">
-              {isScrolled ? (
+              {isScrolled && !mobileMenuOpen ? (
                 <motion.div
                   key="icon-logo"
                   initial={{ x: -20, opacity: 0 }}
