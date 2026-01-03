@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Calendar, Menu, X } from 'lucide-react';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 
 import logoFull from '@/assets/logo-full.svg';
 import logoIcon from '@/assets/logo-icon.svg';
@@ -15,6 +15,17 @@ import { Button } from '@/components/ui/button';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <motion.header
@@ -26,18 +37,38 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center gap-2">
-          <Image
-            src={logoIcon}
-            alt="CanUMeetMe"
-            width={32}
-            height={32}
-            className="block sm:hidden"
-          />
+          {/* Mobile Logo */}
+          <div className={`relative ${isScrolled ? '' : '-ml-4'} block sm:hidden`}>
+            <AnimatePresence mode="wait">
+              {isScrolled ? (
+                <motion.div
+                  key="icon-logo"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: -20, opacity: 0 }}
+                  transition={{ duration: 0.25, ease: 'easeInOut' }}
+                >
+                  <Image src={logoIcon} alt="CanUMeetMe" width={32} height={32} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="full-logo"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: -20, opacity: 0 }}
+                  transition={{ duration: 0.25, ease: 'easeInOut' }}
+                >
+                  <Image src={logoFull} alt="CanUMeetMe" width={236} height={59} priority />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          {/* Desktop Logo*/}
           <Image
             src={logoFull}
             alt="CanUMeetMe"
-            width={160}
-            height={40}
+            width={256}
+            height={64}
             className="hidden sm:block"
             priority
           />
@@ -59,23 +90,29 @@ export function Navbar() {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
+            transition={{
+              type: 'spring',
+              stiffness: 200,
+              damping: 20,
+            }}
+          >
+            {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </motion.div>
         </Button>
       </nav>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className="border-border/40 border-t px-4 py-4 sm:hidden"
-        >
+        <div className="border-border/40 border-t px-4 py-4 sm:hidden">
           <CreateMeetingButton className="w-full">
             <Calendar data-icon="inline-start" className="size-4" />
             Create Meeting
           </CreateMeetingButton>
-        </motion.div>
+        </div>
       )}
     </motion.header>
   );
