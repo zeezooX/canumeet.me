@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 import { format, formatDistanceToNow, formatDuration, intervalToDuration } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
-import { AlertCircle, Bell, Calendar, Clock, Edit, MessageSquare, User } from 'lucide-react';
+import { AlertCircle, Bell, Calendar, Clock, ClockFading, MessageSquare, User } from 'lucide-react';
 
 import { CommentCard, CommentInput } from '@/components/common';
 import { Badge } from '@/components/ui/badge';
@@ -47,13 +47,13 @@ export function ViewMeetingContent({ meeting, availabilityId }: Readonly<ViewMee
           {meeting.excusesEnabled && <Badge variant="outline">Excuses</Badge>}
         </div>
 
-        <div className="mb-2 flex flex-col items-start gap-2 sm:flex-row sm:items-center">
+        <div className="mb-2 flex flex-row items-center gap-2">
           <h1 className="text-3xl font-bold">{meeting.name || `${meeting.owner}'s Meeting`}</h1>
           {availabilityId && (
-            <Button variant="outline" asChild className="sm:ml-auto">
+            <Button variant="secondary" asChild className="ml-auto">
               <Link href={`/meeting/${meeting.publicId}/availability/${availabilityId}`}>
-                <Edit data-icon="inline-start" className="size-4" />
-                Edit Your Availability
+                <ClockFading data-icon="inline-start" className="size-4" />
+                Edit
               </Link>
             </Button>
           )}
