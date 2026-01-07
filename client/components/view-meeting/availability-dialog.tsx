@@ -5,7 +5,7 @@ import { useEffect, useTransition } from 'react';
 import Link from 'next/link';
 
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod.js';
-import { Edit, Loader2 } from 'lucide-react';
+import { ClockFading, Loader2 } from 'lucide-react';
 import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -75,9 +75,12 @@ export function AvailabilityDialog({
         const response = await createAvailability(meeting.publicId, data);
         toast('Availability submitted successfully!', {
           action: (
-            <Button variant="ghost" asChild className="ml-auto">
-              <Link href={`/meeting/${meeting.publicId}/availability/${response.privateId}`}>
-                <Edit className="size-4" />
+            <Button variant="ghost" asChild className="ml-auto" size="xs">
+              <Link
+                href={`/meeting/${meeting.publicId}/availability/${response.privateId}`}
+                className="text-xs"
+              >
+                <ClockFading className="size-3" /> Edit
               </Link>
             </Button>
           ),

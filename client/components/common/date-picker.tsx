@@ -56,7 +56,12 @@ export function DatePicker({
           <Calendar
             mode="single"
             selected={value ? new Date(value) : undefined}
-            onSelect={(date) => onChange(date?.toISOString())}
+            onSelect={(date) => {
+              if (date) {
+                date.setHours(23, 59);
+                onChange(date.toISOString());
+              }
+            }}
             autoFocus
           />
           {value && (
